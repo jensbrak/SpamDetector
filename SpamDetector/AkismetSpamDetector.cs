@@ -38,10 +38,10 @@ namespace Zon3.SpamDetector
                     {"comment_content", HttpUtility.UrlEncode(comment.Body ?? string.Empty)},
                     {"comment_date_gmt", HttpUtility.UrlEncode(comment.Created.ToString())},
                     {"comment_post_modified_gmt", HttpUtility.UrlEncode(comment.Created.ToString())},
-                    {"blog_lang", HttpUtility.UrlEncode("en_US")},
-                    {"blog_charset", HttpUtility.UrlEncode("IsoLatin1")},
-                    {"user_role", HttpUtility.UrlEncode("guest")},
-                    {"is_test", HttpUtility.UrlEncode(isTest)}
+                    {"blog_lang", HttpUtility.UrlEncode(Options.SiteLanguage)},
+                    {"blog_charset", HttpUtility.UrlEncode(Options.SiteEncoding)},
+                    {"user_role", HttpUtility.UrlEncode(Options.UserRole)},
+                    {"is_test", HttpUtility.UrlEncode(Options.IsTest.ToString())}
                 };
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.SpamApiUrl)
