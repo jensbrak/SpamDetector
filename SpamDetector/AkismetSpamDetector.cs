@@ -16,21 +16,20 @@ namespace Zon3.SpamDetector
         {
             // Intentionally left empty
         }
+        
         protected override async Task<HttpRequestMessage> GetSpamRequestMessageAsync(Comment comment)
         {
             var post = await PiranhaApi.Posts.GetByIdAsync(comment.ContentId);
             var page = await PiranhaApi.Pages.GetByIdAsync(post != null ? post.BlogId : comment.ContentId);
             var permalink = post != null ? post.Permalink : page.Permalink;
-            var blog = $"{Options.SiteUrl}{permalink}";
-            var isTest = Options.IsTest.ToString().ToLower();
 
             var parameters = new Dictionary<string, string>
                 {
-                    {"blog", HttpUtility.UrlEncode(blog)},
+                    {"blog", HttpUtility.UrlEncode(Options.SiteUrl)},
                     {"user_ip", HttpUtility.UrlEncode(comment.IpAddress)},
                     {"user_agent", HttpUtility.UrlEncode(comment.UserAgent)},
                     {"referrer", HttpUtility.UrlEncode(string.Empty)},
-                    {"permalink", HttpUtility.UrlEncode(permalink)},
+                    {"permalink", HttpUtility.UrlEncode($"{Options.SiteUrl}{permalink}")},
                     {"comment_type", HttpUtility.UrlEncode("comment")},
                     {"comment_author", HttpUtility.UrlEncode(comment.Author ?? string.Empty)},
                     {"comment_author_email", HttpUtility.UrlEncode(comment.Email ?? string.Empty)},
@@ -44,12 +43,21 @@ namespace Zon3.SpamDetector
                     {"is_test", HttpUtility.UrlEncode(Options.IsTest.ToString())}
                 };
 
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, Options.SpamApiUrl)
+            return new HttpRequestMessage(HttpMethod.Post, Options.SpamApiUrl)
             {
                 Content = new FormUrlEncodedContent(parameters)
             };
+        }
 
-            return requestMessage;
+        protected override async Task<CommentReview> GetCommentReviewFromResponse(HttpResponseMessage response)
+        {
+            var answer = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+
+            return new CommentReview()
+            {
+                IsSpam = answer.Equals("true", StringComparison.OrdinalIgnoreCase),
+                Information = response.Headers.ToString()
+            };
         }
     }
 }

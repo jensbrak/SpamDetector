@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic;
 using Piranha;
@@ -23,11 +24,11 @@ namespace Zon3.SpamDetector
     /// </summary>
     public abstract class SpamDetector : ISpamDetector
     {
-        public IApi PiranhaApi { get; }
+        protected IApi PiranhaApi { get; }
 
-        public IHttpClientFactory ClientFactory { get; }
+        protected IHttpClientFactory ClientFactory { get; }
 
-        public SpamDetectorOptions Options { get; }
+        protected SpamDetectorOptions Options { get; }
 
         public SpamDetector(IApi piranhaApi, IHttpClientFactory clientFactory, IOptions<SpamDetectorOptions> options) 
         {
@@ -48,18 +49,18 @@ namespace Zon3.SpamDetector
             var response = await client.SendAsync(requestMessage);
             response.EnsureSuccessStatusCode();
 
-            // Interpet answer
-            var answer = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
-            var isSpam = answer.Equals("true", StringComparison.OrdinalIgnoreCase);
+            // Get review result from response
+            var review = await GetCommentReviewFromResponse(response);
 
-            return new CommentReview() 
-            { 
-                IsSpam = isSpam,
-                Information = response.Headers.ToString()
-            };
+            // Review done
+            return review;
+            
         }
 
         // Leave implementation to derived class
         protected abstract Task<HttpRequestMessage> GetSpamRequestMessageAsync(Comment comment);
+
+        // Leave implementation to derived class
+        protected abstract Task<CommentReview> GetCommentReviewFromResponse(HttpResponseMessage response);
     }
 }
