@@ -2,21 +2,34 @@
 Basic Spam Detection Module for PiranhaCMS using Akismet API
 
 # Description
-A basic module that use Akismet to validate comments submitted to a Piranha Page or Post. This is done by providing Akismet with details from the comment and the site using the module. If the comment is considered spam by Akismet, it will not be approved. The comment will then be marked Pending in Piranha Manager.
+A basic module that use Akismet to validate comments submitted to a Piranha Page or Post. This is done by providing Akismet with details from the comment and the site using the module. If the comment is considered spam by Akismet, it will not be approved by Piranha. The comment instead will then be marked Pending in Piranha Manager.
 
-Please note: using the module as a Comment Validation Hook will override the Manager Config setting for Approve Comments. This means that regardless of that setting a comment will be approved (ie published) if it is not considered spam. If considered spam, the comment will not be approved (ie pending).
+_Please note: using the module as a Comment Validation Hook will override the Manager Config setting for Approve Comments. This means that regardless of that setting a comment will be approved (ie published) if it is not considered spam. If considered spam, the comment will not be approved (ie pending)._
 
 # Dependencies
 * `Microsoft.Extensions.Http`
 * `Piranha` (version 8.x, see notes below)
 
-_Note 1: current version of SpamDetector is designed using Piranha version 8.x. However, in order for the module to work properly, it require fixes made scheduled to be released with version 9 (see issues #1338 and #1347). Either try this module out with those fixes applied to Piranha or wait for version 9._
+_Note 1: current version of SpamDetector is designed using Piranha version 8.x. However, in order for the module to work properly, it require fixes scheduled for the version 9 of Piranha (see issues #1338 and #1347). Either try this module out with Piranha with the fixes applied - or wait for version 9._
 
-_Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be redesigned when version 9 is released. Take this into account if trying this module._
+_Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be redesigned too when version 9 is released. Take this into account if using this module._
 
 # Prerequisites
 * A solution or project using PiranhaCMS (see https://piranhacms.org/)
 * An Akismet Developer API key (see https://akismet.com/development/api)
+
+# Further reading
+* Piranha Modules: https://piranhacms.org/docs/extensions/modules
+* Piranha Hooks: https://piranhacms.org/docs/application/hooks
+* Piranha Hooks related issues:
+    * https://github.com/PiranhaCMS/piranha.core/issues/1347
+    * https://github.com/PiranhaCMS/piranha.core/issues/1236
+* Piranha Comments related issues:
+    * https://github.com/PiranhaCMS/piranha.core/issues/1338
+    * https://github.com/PiranhaCMS/piranha.core/issues/1236
+* Akismet API documentation:
+    * https://akismet.com/development/api/#detailed-docs
+    * https://akismet.com/development/api/#comment-check
 
 # Usage
 See Code snippets below for example.
