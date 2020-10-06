@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Piranha;
 using Piranha.Services;
 using System;
+using System.Linq;
 using System.Net.Http;
 
 namespace Zon3.SpamDetector
@@ -23,6 +24,11 @@ namespace Zon3.SpamDetector
             if (options == null)
             {
                 throw new ArgumentNullException(nameof(options), "SpamDetector require valid SpamDetectorOptions");
+            }
+
+            if (!services.Any(s => s.ServiceType == typeof(IHttpClientFactory)))
+            {
+                services.AddHttpClient();
             }
 
             services.Configure(options);

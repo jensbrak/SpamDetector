@@ -23,12 +23,6 @@ namespace Zon3.SpamDetector
             Action<SpamDetectorOptions> options,
             ServiceLifetime scope = ServiceLifetime.Scoped)
         {
-            // Check dependent services
-            if (!serviceBuilder.Services.Any(s => s.ServiceType == typeof(IHttpClientFactory)))
-            {
-                throw new NotSupportedException("SpamDetector failed to find dependency service for IHttpClientFactory");
-            }
-
             serviceBuilder.Services.AddSpamDetector<T>(options, scope);
 
             return serviceBuilder;

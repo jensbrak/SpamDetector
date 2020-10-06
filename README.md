@@ -62,8 +62,7 @@ _Note 2: While optional, the value of `IsTest` will have to be changed to `false
 ```csharp
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient();
-            services.Configure<SpamDetectorOptions>(_config.GetSection(SpamDetectorOptions.Identifier));
+			services.Configure<SpamDetectorOptions>(_config.GetSection(SpamDetectorOptions.Identifier));
 
             services.AddPiranha(options =>
             {
