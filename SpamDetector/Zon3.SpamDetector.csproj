@@ -4,11 +4,32 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
+    <Authors>jensbrak</Authors>
+    <Company />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>Spam detector module for PiranhaCMS</Description>
+    <PackageProjectUrl>https://zon3.se/spamdetector</PackageProjectUrl>
+    <PackageIcon>PhiddleLogo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/jensbrak/zon3.SpamDetector</RepositoryUrl>
+    <RepositoryType>Piranha.Module</RepositoryType>
+    <PackageTags>aspnetcore netstandard extension</PackageTags>
+    <PackageReleaseNotes>First version using Akismet. See repository for more information on how to configure</PackageReleaseNotes>
+    <Copyright>jensbrak</Copyright>
+    <Version>1.0.0-beta</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
     <PackageReference Include="Piranha" Version="8.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\zon3.resources\Logo\PhiddleLogo\PhiddleLogo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

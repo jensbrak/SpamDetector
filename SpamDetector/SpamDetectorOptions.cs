@@ -7,7 +7,7 @@ namespace Zon3.SpamDetector
     public class SpamDetectorOptions
     {
         public const string Identifier = "SpamDetector";
-
+        public bool Enabled { get; set; } = true;
         public string SpamApiUrl { get; set; }
         public string SiteUrl { get; set; } 
         public string SiteLanguage { get; set; } = "en-US";
