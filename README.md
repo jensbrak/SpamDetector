@@ -10,7 +10,7 @@ _Please note: using the module as a Comment Validation Hook will override the Ma
 * `Microsoft.Extensions.Http`
 * `Piranha` (version 8.x, see notes below)
 
-_Note 1: current version of SpamDetector is designed using Piranha version 8.x. However, in order for the module to work properly, it require fixes scheduled for the version 9 of Piranha (see issues #1338 and #1347). Either try this module out with Piranha with the fixes applied - or wait for version 9. But... _
+_Note 1: current version of SpamDetector is designed using Piranha version 8.x. However, in order for the module to work properly, it require fixes scheduled for the version 9 of Piranha (see issues #1338 and #1347). Either try this module out with Piranha with the fixes applied - or wait for version 9. But..._
 
 _Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be redesigned too (when version 9 is released). Take this into account if trying this module._
 
