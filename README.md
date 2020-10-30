@@ -31,8 +31,8 @@ _Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be
     * https://akismet.com/development/api/#detailed-docs
     * https://akismet.com/development/api/#comment-check
 
-# Usage
-See Code snippets below for example. Basically, do this:
+# Usage / setup
+See Code snippets at the end for shortened examples. Basically, do this:
 
 ## Code
 1. Add a reference to `Zon3.SpamDetector` in your Piranha project
@@ -42,6 +42,9 @@ See Code snippets below for example. Basically, do this:
     1. Register `SpamDetector` as a Comment hook after Piranha has been setup
 
 ## Settings
+1. Update the settings file (appSettings.json) with a section for SpamDetector (ie `"SpamDetector": { }`)  
+1. Add at least the options for `SpamApiUrl`, `IsTest` and `SiteUrl` (see notes below why the latter two are recommended but not required)
+
 The class `SpamDetectorOptions` defines the options that can be set for SpamDetector. These options are read from settings file. The options available are:
 
 * `Enabled` (optional, default: `true`): If false, module will not send requests and leave comments unreviewed
@@ -56,6 +59,26 @@ _Note 1: While SpamDetector will run without `SiteUrl` defined, it is highly rec
 
 _Note 2: While optional, the value of `IsTest` will have to be changed to `false` eventually. The reason for having to do this explicitly is to prevent undesired live requests to the API while setting up and testing._
 
+# Design and roadmap
+## Design thoughts
+Primarly designed to help understanding how modules and hooks work in Piranha, without complicating things too much but still by using Piranha and .NET Core features available.
+It does work preventing spam too but that was more of a side effect of the project.
+That being said, some thoughts on reusability was put into the main classes (`SpamDetector` and `CommentReview`). The idea is:
+
+1. Define a base class `SpamDetector` that implements the interface `ISpamDetector`. It is just a simple wrapper to make an API-call and some signature definitions to be used for spam detection.
+1. Derive the base class with an actual implementation `AkismetSpamDetector` using an API (Akismet). This is done by 
+     1. Implementing `async Task<HttpRequestMessage> GetSpamRequestMessageAsync(Comment comment)` which transform a Piranha `Comment` to an API-request for Akismet
+     2. Implementing `async Task<CommentReview> GetCommentReviewFromResponse(HttpResponseMessage response)` which transform the API-resonse from Akismet back to something to be used by Piranha
+1. Register a comment hook that intercept comments before they are saved. Use it to check if it's spam or not and change the field `IsApproved` of the `Comment` accordingly
+1. Register a module definition to show it's installed
+
+## Roadmap and ideas
+Some things I'd like to improve (Pull requests are most welcome btw!):
+
+* Use a second API and implement it (any suggestions as for which API?). Adjust the module if needed.
+* Adjust it for Piranha version 9.
+* Make nuget package (preferably using automation). Not meaningful to do before version 9 is released.
+* ...?...
 
 # Code snippets
 ## Registering services
