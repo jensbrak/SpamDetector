@@ -10,9 +10,9 @@ _Please note: using the module as a Comment Validation Hook will override the Ma
 * `Microsoft.Extensions.Http`
 * `Piranha` (version 8.x, see notes below)
 
-_Note 1: current version of SpamDetector is designed using Piranha version 8.x. However, in order for the module to work properly, it require fixes scheduled for the version 9 of Piranha (see issues #1338 and #1347). Either try this module out with Piranha with the fixes applied - or wait for version 9._
+_Note 1: current version of SpamDetector is designed using Piranha version 8.x. However, in order for the module to work properly, it require fixes scheduled for the version 9 of Piranha (see issues #1338 and #1347). Either try this module out with Piranha with the fixes applied - or wait for version 9. But... _
 
-_Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be redesigned too when version 9 is released. Take this into account if using this module._
+_Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be redesigned too (when version 9 is released). Take this into account if trying this module._
 
 # Prerequisites
 * A solution or project using PiranhaCMS (see https://piranhacms.org/)
@@ -32,27 +32,27 @@ _Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be
     * https://akismet.com/development/api/#comment-check
 
 # Usage
-See Code snippets below for example.
+See Code snippets below for example. Basically, do this:
 
 ## Code
 1. Add a reference to `Zon3.SpamDetector` in your Piranha project
 1. In `Startup.cs` register reqired services and hooks: 
     1. Register `IHttpClientFactory` service
     1. Register `SpamDetector` service using `SpamDetectorOptions` for settings
-    1. Register `SpamDetector` as a Comment hook after Piranha has been)
+    1. Register `SpamDetector` as a Comment hook after Piranha has been setup
 
 ## Settings
-The class `SpamDetectorOptions` defines the options that can be set for SpamDetector. The options available are:
+The class `SpamDetectorOptions` defines the options that can be set for SpamDetector. These options are read from settings file. The options available are:
 
 * `Enabled` (optional, default: `true`): If false, module will not send requests and leave comments unreviewed
 * `SpamApiUrl` (Required): the complete URL to the API to use for spam detection
-* `SiteUrl` (optional): the base URL of the site the comments are posted on. See Note 1. 
+* `SiteUrl` (optional): the base URL of the site the comments are posted on. See Note 1 below. 
 * `SiteLanguage` (optional, default: `"en-US"`): The language of the site the comments are posted on 
 * `SiteEncoding` (optional, default: `"UTF8"`): The encoding of the site the comments are posted on
 * `UserRole` (optional, default: `"guest"`): The name of the user role comments are posted as
-* `IsTest` (optional, default: `true`): If true, all requests are marked 'test'. See Note 2.
+* `IsTest` (optional, default: `true`): If true, all requests are marked 'test'. See Note 2 below.
 
-_Note 1: While SpamDetector will run without `SpamApiUrl` defined, it is highly recommended to set it to get reliable results. However, while testing it shouldn't matter (see `IsTest`)._
+_Note 1: While SpamDetector will run without `SiteUrl` defined, it is highly recommended to set it to get reliable results. However, while testing it shouldn't matter (see `IsTest`)._
 
 _Note 2: While optional, the value of `IsTest` will have to be changed to `false` eventually. The reason for having to do this explicitly is to prevent undesired live requests to the API while setting up and testing._
 
