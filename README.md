@@ -84,7 +84,7 @@ _Note 2: While optional, the value of `IsTest` will have to be changed to `false
             {
                 using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
                 ISpamDetector commentModerator = serviceScope.ServiceProvider.GetRequiredService<ISpamDetector>();
-                c.IsApproved = commentModerator.ReviewAsync(c).Result.IsApproved;
+                c.IsApproved = commentModerator.ReviewAsync(c).Result.Approved;
             });
         }
 ```
