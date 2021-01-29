@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
     <Authors>jensbrak</Authors>
@@ -16,13 +16,13 @@
     <PackageTags>aspnetcore netstandard extension</PackageTags>
     <PackageReleaseNotes>First version using Akismet. See repository for more information on how to configure</PackageReleaseNotes>
     <Copyright>jensbrak</Copyright>
-    <Version>1.0.0-beta</Version>
+    <Version>1.0.0</Version> 
   </PropertyGroup>
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
-    <PackageReference Include="Piranha" Version="8.4.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Piranha" Version="9.0.0-rc1" />
   </ItemGroup>
 
   <ItemGroup>

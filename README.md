@@ -8,28 +8,24 @@ _Please note: using the module as a Comment Validation Hook will override the Ma
 
 # Dependencies
 * `Microsoft.Extensions.Http`
-* `Piranha` (version 8.x, see notes below)
+* `Piranha` version 9
 
-_Note 1: current version of SpamDetector is designed using Piranha version 8.x. However, in order for the module to work properly, it require fixes scheduled for the version 9 of Piranha (see issues #1338 and #1347). Either try this module out with Piranha with the fixes applied - or wait for version 9._
-
-_Note 2: Piranha version 9 will have hooks redesigned, forcing this module to be redesigned too when version 9 is released. Take this into account if using this module._
+_Note: Piranha version 10 is planned to have hooks redesigned, forcing this module to be redesigned too when version 10 is released. Take this into account if using this module. (See referenced issue under Further reading section)._
 
 # Prerequisites
 * A solution or project using PiranhaCMS (see https://piranhacms.org/)
 * An Akismet Developer API key (see https://akismet.com/development/api)
 
 # Further reading
-* Piranha Modules: https://piranhacms.org/docs/extensions/modules
-* Piranha Hooks: https://piranhacms.org/docs/application/hooks
-* Piranha Hooks related issues:
-    * https://github.com/PiranhaCMS/piranha.core/issues/1347
-    * https://github.com/PiranhaCMS/piranha.core/issues/1236
-* Piranha Comments related issues:
-    * https://github.com/PiranhaCMS/piranha.core/issues/1338
-    * https://github.com/PiranhaCMS/piranha.core/issues/1236
+* Piranha Modules: 
+	* https://piranhacms.org/docs/extensions/modules
+* Piranha Hooks: 
+	* https://piranhacms.org/docs/application/hooks
 * Akismet API documentation:
     * https://akismet.com/development/api/#detailed-docs
     * https://akismet.com/development/api/#comment-check
+* Related Piranha issues:
+    * Redesign of Hooks: https://github.com/PiranhaCMS/piranha.core/issues/1236
 
 # Usage
 See Code snippets below for example.
@@ -88,7 +84,7 @@ _Note 2: While optional, the value of `IsTest` will have to be changed to `false
             {
                 using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
                 ISpamDetector commentModerator = serviceScope.ServiceProvider.GetRequiredService<ISpamDetector>();
-                c.IsApproved = !commentModerator.ReviewAsync(c).Result.IsSpam;
+                c.IsApproved = commentModerator.ReviewAsync(c).Result.IsApproved;
             });
         }
 ```
@@ -100,8 +96,8 @@ A minimal section for SpamDetecor would be:
     "SpamDetector": {
         "SpamApiUrl": "https://<yourakismetapikeyhere>.rest.akismet.com/1.1/comment-check",
         "SiteUrl": "https://<yourawesomepiranhasitehere>",
-        "IsTest": false
+        "IsTest": true
     }
 ```
 
-_Note: Only set `IsTest` to true when confident everything is properly setup and working_
+_Note: Only set `IsTest` to false when confident everything is properly setup and working_
