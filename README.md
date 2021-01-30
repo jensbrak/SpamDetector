@@ -27,6 +27,11 @@ _Note: Piranha version 10 is planned to have hooks redesigned, forcing this modu
 * Related Piranha issues:
     * Redesign of Hooks: https://github.com/PiranhaCMS/piranha.core/issues/1236
 
+# Demo
+Please go ahead and try it out by saying posting a comment with a greeting on my blog. It runs PiranhaCMS with this module active. If your comment is directly visible it's been classified by akismet as non-spam and approved by the SpamDetector module as a valid comment. 
+
+My PiranhaCMS demo site: https://zon3.se 
+
 # Usage
 See Code snippets below for example.
 
