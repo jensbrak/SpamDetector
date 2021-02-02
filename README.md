@@ -33,7 +33,9 @@ Please go ahead and try it out by posting a comment with a greeting on my blog. 
 My PiranhaCMS demo site: https://zon3.se 
 
 # Usage
-See Code snippets below for example.
+See Code snippets below for pointers or check the sample files `Startup.cs` and `appsettings.json` provided in the `Example` folder:
+
+https://github.com/jensbrak/SpamDetector/blob/master/Examples/ 
 
 ## Code
 1. Add a reference to `Zon3.SpamDetector` in your Piranha project
