@@ -1,0 +1,73 @@
+version: '1.0.0.{build}'
+
+max_jobs: 1
+
+image: ubuntu
+
+init:
+  - git config --global core.autocrlf input
+
+clone_depth: 1
+
+#environment:
+#  use_version: 1.0.1
+
+install:
+  - nuget help | head -1
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '%use_version%'
+  package_version: '%use_version%'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '%use_version%'
+
+configuration:
+  - Debug
+  - Release
+
+build: off
+
+before_build:
+  - dotnet --version
+  - dotnet restore --verbosity m
+
+build_script:
+  - dotnet build --configuration $CONFIGURATION --no-restore
+  - dotnet pack  --configuration $CONFIGURATION --no-build
+
+test: off
+
+artifacts:
+   - path: '**\*.nupkg'
+
+deploy:
+  - provider: NuGet
+    api_key:
+      secure: 1USPjoEfJEHJT+1h+OWpgMhiiQbO2sgliuKh9wA7Gq7cpXsq2hfACYpi+PqKUt5/
+    skip_symbols: true
+    on:
+      branch: master
+      APPVEYOR_REPO_TAG: true
+
+for:
+-
+  matrix:
+    only:
+      - configuration: Debug
+  branches:
+    except:
+    - master
+  test_script:
+    - dotnet test --configuration $CONFIGURATION --no-restore --no-build Test/SpamDetectorTest.csproj
+-
+  matrix:
+    only:
+      - configuration: Release
+  branches:
+    only:
+    - master
+  test_script:
+    - dotnet test --configuration $CONFIGURATION --no-restore --no-build
