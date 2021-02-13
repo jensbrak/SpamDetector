@@ -9,8 +9,8 @@ init:
 
 clone_depth: 1
 
-#environment:
-#  use_version: 1.0.1
+environment:
+  use_version: 1.0.0
 
 install:
   - nuget help | head -1
