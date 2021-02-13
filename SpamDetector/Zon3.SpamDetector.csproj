@@ -4,19 +4,21 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <Authors>jensbrak</Authors>
-    <Company />
+    <Version>1.0.0-rc1</Version> 
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+
+    <Authors>Jens Bråkenhielm</Authors>
+    <Copyright>Copyright 2019-2021 (c) Jens Bråkenhielm</Copyright>
+    <Description>Piranha Module detecting comment spam using Akismet</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>Spam detector module for PiranhaCMS</Description>
+    <PackageTags>aspnetcore netstandard</PackageTags>
+    <PackageReleaseNotes>First version. See repository for more information on how to configure and use</PackageReleaseNotes>
     <PackageProjectUrl>https://zon3.se/spamdetector</PackageProjectUrl>
     <PackageIcon>PhiddleLogo.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/jensbrak/zon3.SpamDetector</RepositoryUrl>
-    <RepositoryType>Piranha.Module</RepositoryType>
-    <PackageTags>aspnetcore netstandard extension</PackageTags>
-    <PackageReleaseNotes>First version using Akismet. See repository for more information on how to configure</PackageReleaseNotes>
-    <Copyright>jensbrak</Copyright>
-    <Version>1.0.0-rc1</Version> 
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\zon3.resources\Logo\PhiddleLogo\PhiddleLogo.png">
+    <None Include="..\Resources\PhiddleLogo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

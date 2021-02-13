@@ -14,12 +14,12 @@ namespace Zon3.SpamDetector
         /// <summary>
         /// Gets the Author
         /// </summary>
-        public string Author => "Zon3";
+        public string Author => "Jens Bråkenhielm";
 
         /// <summary>
         /// Gets the Name
         /// </summary>
-        public string Name => "Zon3.Modules.SpamDetector";
+        public string Name => "Zon3.SpamDetector";
 
         /// <summary>
         /// Gets the Version
@@ -29,17 +29,17 @@ namespace Zon3.SpamDetector
         /// <summary>
         /// Gets the description
         /// </summary>
-        public string Description => "Module for spam detection in Comments";
+        public string Description => "Piranha Module detecting comment spam using Akismet";
 
         /// <summary>
         /// Gets the package url.
         /// </summary>
-        public string PackageUrl => "<not published>";
+        public string PackageUrl => "https://www.nuget.org/packages/Zon3.SpamDetector";
 
         /// <summary>
         /// Gets the icon url.
         /// </summary>
-        public string IconUrl => "https://geek.zon3.se/uploads/35e58d2f-bc69-4fd9-8dd1-49c4ad56e53b/PhiddleLogo_512x512.png";
+        public string IconUrl => "https://zon3.se/uploads/35e58d2f-bc69-4fd9-8dd1-49c4ad56e53b/PhiddleLogo_512x512.png";
 
         /// <summary>
         /// Initializes the module.
