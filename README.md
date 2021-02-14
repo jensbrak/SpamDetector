@@ -1,7 +1,12 @@
 # SpamDetector
+| Server | Status |
+| ------ | ------ |
+| AppVeyor | [![Build status](https://ci.appveyor.com/api/projects/status/x55tk8vtffvt354b?svg=true)](https://ci.appveyor.com/project/jensbrak/spamdetector) |
+| NuGet | [![Nuget](https://img.shields.io/nuget/v/Zon3.SpamDetector)](https://www.nuget.org/packages/Zon3.SpamDetector) |
+
 Basic Spam Detection Module for PiranhaCMS using Akismet API
 
-# Description
+# About
 A basic module that use Akismet to validate comments submitted to a Piranha Page or Post. This is done by providing Akismet with details from the comment and the site using the module. If the comment is considered spam by Akismet, it will not be approved by Piranha. The comment instead will then be marked Pending in Piranha Manager.
 
 _Please note: using the module as a Comment Validation Hook will override the Manager Config setting for Approve Comments. This means that regardless of that setting a comment will be approved (ie published) if it is not considered spam. If considered spam, the comment will not be approved (ie pending)._
