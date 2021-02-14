@@ -25,7 +25,7 @@ dotnet_csproj:
   informational_version: '%use_version%'
 
 configuration:
-  - Debug
+#  - Debug
   - Release
 
 build: off
@@ -60,8 +60,8 @@ for:
   branches:
     except:
     - master
-  test_script:
-    - dotnet test --configuration $CONFIGURATION --no-restore --no-build Test/SpamDetectorTest.csproj
+#  test_script:
+#    - dotnet test --configuration $CONFIGURATION --no-restore --no-build Test/SpamDetectorTest.csproj
 -
   matrix:
     only:
