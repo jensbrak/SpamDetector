@@ -19,6 +19,7 @@ _Note: Piranha version 10 is planned to have hooks redesigned, forcing this modu
 # Further reading
 * Piranha Modules: 
 	* https://piranhacms.org/docs/extensions/modules
+	* https://github.com/PiranhaCMS/piranha.modules
 * Piranha Hooks: 
 	* https://piranhacms.org/docs/application/hooks
 * Akismet API documentation:
@@ -40,7 +41,6 @@ https://github.com/jensbrak/SpamDetector/blob/master/Examples/
 ## Code
 1. Add a reference to `Zon3.SpamDetector` in your Piranha project
 1. In `Startup.cs` register reqired services and hooks: 
-    1. Register `IHttpClientFactory` service
     1. Register `SpamDetector` service using `SpamDetectorOptions` for settings
     1. Register `SpamDetector` as a Comment hook after Piranha has been)
 
