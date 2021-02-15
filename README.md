@@ -7,7 +7,7 @@
 Basic Spam Detection Module for PiranhaCMS using Akismet API
 
 # About
-A basic module that use Akismet to validate comments submitted to a Piranha Page or Post. This is done by providing Akismet with details from the comment and the site using the module. If the comment is considered spam by Akismet, it will not be approved by Piranha. The comment instead will then be marked Pending in Piranha Manager.
+A basic module that use Akismet to validate comments submitted to a Piranha Page or Post. This is done by providing Akismet with details from the comment and the site using the module. If the comment is considered to be spam by Akismet, it will not be approved by Piranha. Comments in Piranha Manager are either approved or pending which means (when the module is active): all comments marked approved has been verified as non-spam by the module and all comments marked as pending is spam (and can be removed).
 
 _Please note: using the module as a Comment Validation Hook will override the Manager Config setting for Approve Comments. This means that regardless of that setting a comment will be approved (ie published) if it is not considered spam. If considered spam, the comment will not be approved (ie pending)._
 
