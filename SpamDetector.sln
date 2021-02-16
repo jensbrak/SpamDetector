@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{42A80899-B636-4107-89CD-55B814A90058}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zon3.SpamDetector", "src\Zon3.SpamDetector.csproj", "{42212160-0AF3-4665-AF17-A67EE265DD8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zon3.SpamDetector", "src\Zon3.SpamDetector.csproj", "{42212160-0AF3-4665-AF17-A67EE265DD8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AF9527A1-A260-403C-AE4A-58ADD5D61405}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zon3.SpamDetector.Tests", "test\Zon3.SpamDetector.Tests\Zon3.SpamDetector.Tests.csproj", "{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{42212160-0AF3-4665-AF17-A67EE265DD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -32,8 +33,27 @@ Global
 		{42212160-0AF3-4665-AF17-A67EE265DD8C}.Release|x64.Build.0 = Release|Any CPU
 		{42212160-0AF3-4665-AF17-A67EE265DD8C}.Release|x86.ActiveCfg = Release|Any CPU
 		{42212160-0AF3-4665-AF17-A67EE265DD8C}.Release|x86.Build.0 = Release|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Debug|x64.Build.0 = Debug|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Debug|x86.Build.0 = Debug|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Release|x64.ActiveCfg = Release|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Release|x64.Build.0 = Release|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Release|x86.ActiveCfg = Release|Any CPU
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{42212160-0AF3-4665-AF17-A67EE265DD8C} = {42A80899-B636-4107-89CD-55B814A90058}
+		{D1336D0E-FD8A-4E93-B6DC-CECC7EF7C360} = {AF9527A1-A260-403C-AE4A-58ADD5D61405}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54707162-C547-4BA9-8D37-05EA0018144A}
 	EndGlobalSection
 EndGlobal

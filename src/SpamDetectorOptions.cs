@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Zon3.SpamDetector
 {
+    /// <summary>
+    /// Options for SpamDetector with default values 
+    /// </summary>
     public class SpamDetectorOptions
     {
         public const string Identifier = "SpamDetector";

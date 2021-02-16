@@ -60,7 +60,7 @@ The class `SpamDetectorOptions` defines the options that can be set for SpamDete
 * `UserRole` (optional, default: `"guest"`): The name of the user role comments are posted as
 * `IsTest` (optional, default: `true`): If true, all requests are marked 'test'. See Note 2.
 
-_Note 1: While SpamDetector will run without `SpamApiUrl` defined, it is highly recommended to set it to get reliable results. However, while testing it shouldn't matter (see `IsTest`)._
+_Note 1: While SpamDetector will run without `SiteUrl` defined, it is highly recommended to set it to get reliable results. However, while testing it shouldn't matter (see `IsTest`)._
 
 _Note 2: While optional, the value of `IsTest` will have to be changed to `false` eventually. The reason for having to do this explicitly is to prevent undesired live requests to the API while setting up and testing._
 

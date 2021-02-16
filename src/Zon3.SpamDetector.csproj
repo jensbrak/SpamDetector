@@ -4,12 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <Version>1.0.0-rc1</Version> 
+    <Version>1.0.0-rc2</Version> 
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
 
     <Authors>Jens Bråkenhielm</Authors>
-    <Copyright>Copyright 2019-2021 (c) Jens Bråkenhielm</Copyright>
+    <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
     <Description>Piranha Module detecting comment spam using Akismet</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -24,7 +24,7 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
-    <PackageReference Include="Piranha" Version="9.0.0-rc1" />
+    <PackageReference Include="Piranha" Version="9.0.0-rc2" />
   </ItemGroup>
 
   <ItemGroup>
