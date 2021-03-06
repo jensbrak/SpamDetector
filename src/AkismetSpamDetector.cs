@@ -8,12 +8,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Zon3.SpamDetector.Models;
 
 namespace Zon3.SpamDetector
 {
     public class AkismetSpamDetector : SpamDetector
     {
-        public AkismetSpamDetector(IApi piranhaApi, IOptions<SpamDetectorOptions> options, IHttpClientFactory clientFactory, ILoggerFactory logger) : base(piranhaApi, options, clientFactory, logger)
+        public AkismetSpamDetector(IApi piranhaApi, SpamDetectorConfigEditModel configEditModel, IHttpClientFactory clientFactory, ILoggerFactory logger) : base(piranhaApi, configEditModel, clientFactory, logger)
         {
             // Intentionally left empty
         }
@@ -25,11 +26,11 @@ namespace Zon3.SpamDetector
             var post = await _piranha.Posts.GetByIdAsync(comment.ContentId);
             var page = await _piranha.Pages.GetByIdAsync(post != null ? post.BlogId : comment.ContentId);
             var permalink = post != null ? post.Permalink : page.Permalink;
-            var permalinkFull = $"{_options.SiteUrl}{permalink}";
+            var permalinkFull = $"{_configEditModel.SiteUrl}{permalink}";
 
             var parameters = new Dictionary<string, string>
                 {
-                    {"blog", HttpUtility.UrlEncode(_options.SiteUrl)},
+                    {"blog", HttpUtility.UrlEncode(_configEditModel.SiteUrl)},
                     {"user_ip", HttpUtility.UrlEncode(comment.IpAddress)},
                     {"user_agent", HttpUtility.UrlEncode(comment.UserAgent)},
                     {"referrer", HttpUtility.UrlEncode(string.Empty)}, // ???
@@ -41,10 +42,10 @@ namespace Zon3.SpamDetector
                     {"comment_content", HttpUtility.UrlEncode(comment.Body ?? string.Empty)},
                     {"comment_date_gmt", HttpUtility.UrlEncode(comment.Created.ToString())},
                     {"comment_post_modified_gmt", HttpUtility.UrlEncode(comment.Created.ToString())},
-                    {"blog_lang", HttpUtility.UrlEncode(_options.SiteLanguage)},
-                    {"blog_charset", HttpUtility.UrlEncode(_options.SiteEncoding)},
-                    {"user_role", HttpUtility.UrlEncode(_options.UserRole)},
-                    {"is_test", HttpUtility.UrlEncode(_options.IsTest.ToString())}
+                    {"blog_lang", HttpUtility.UrlEncode(_configEditModel.SiteLanguage)},
+                    {"blog_charset", HttpUtility.UrlEncode(_configEditModel.SiteEncoding)},
+                    {"user_role", HttpUtility.UrlEncode(_configEditModel.UserRole)},
+                    {"is_test", HttpUtility.UrlEncode(_configEditModel.IsTest.ToString())}
                 };
 
             _logger.LogDebug(
@@ -52,7 +53,7 @@ namespace Zon3.SpamDetector
                 _commentId,
                 comment.IpAddress);
 
-            return new HttpRequestMessage(HttpMethod.Post, _options.SpamApiUrl)
+            return new HttpRequestMessage(HttpMethod.Post, _configEditModel.SpamApiUrl)
             {
                 Content = new FormUrlEncodedContent(parameters)
             };

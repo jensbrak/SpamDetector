@@ -1,20 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>Zon3.SpamDetector</AssemblyName>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	
+	<AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <Version>1.0.0-rc2</Version> 
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-
-    <Authors>Jens Bråkenhielm</Authors>
+    <Version>1.1.0-beta</Version> 
+	
+	<Authors>Jens Bråkenhielm</Authors>
     <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
     <Description>Piranha Module detecting comment spam using Akismet</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>aspnetcore netstandard</PackageTags>
-    <PackageReleaseNotes>First version. See repository for more information on how to configure and use</PackageReleaseNotes>
+    <PackageReleaseNotes>First version, with Manager support added. See repository for more information on how to configure and use</PackageReleaseNotes>
     <PackageProjectUrl>https://zon3.se/spamdetector</PackageProjectUrl>
     <PackageIcon>PhiddleLogo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
@@ -23,15 +23,26 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
-    <PackageReference Include="Piranha" Version="9.0.0-rc2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Piranha" Version="9.0.0-rc2" />
+    <PackageReference Include="Piranha.Manager" Version="9.0.0-rc2" />
+  </ItemGroup>
+  
   <ItemGroup>
     <None Include="..\Resources\PhiddleLogo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="assets\dist\**\*" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="assets\dist\js\zon3.spamdetector.js" />
+  </ItemGroup>
 </Project>

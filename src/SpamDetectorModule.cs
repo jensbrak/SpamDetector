@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Piranha;
 using Piranha.Extend;
+using Piranha.Manager;
 
 namespace Zon3.SpamDetector
 {
@@ -14,7 +13,7 @@ namespace Zon3.SpamDetector
         /// <summary>
         /// Gets the Author
         /// </summary>
-        public string Author => "Jens Bråkenhielm";
+        public string Author => "jensbrak";
 
         /// <summary>
         /// Gets the Name
@@ -24,7 +23,7 @@ namespace Zon3.SpamDetector
         /// <summary>
         /// Gets the Version
         /// </summary>
-        public string Version => Piranha.Utils.GetAssemblyVersion(GetType().Assembly);
+        public string Version => Utils.GetAssemblyVersion(GetType().Assembly);
 
         /// <summary>
         /// Gets the description
@@ -46,6 +45,16 @@ namespace Zon3.SpamDetector
         /// </summary>
         public void Init()
         {
+            // We prefer to reside under Settings, at the bottom
+            var settingsIndex = Menu.Items.FindLastIndex(menuItem => menuItem.Name.Equals("Settings", StringComparison.OrdinalIgnoreCase));
+
+            Menu.Items[settingsIndex].Items.Add(new MenuItem
+            {
+                InternalId = "SpamDetector",
+                Name = "Spam Detector",
+                Route = "~/manager/spamdetector",
+                Css = "fas fa-comment-slash",
+            });
         }
     }
 }
