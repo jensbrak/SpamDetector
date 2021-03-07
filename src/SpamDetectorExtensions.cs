@@ -39,7 +39,7 @@ namespace Zon3.SpamDetector
         {
             return builder.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new EmbeddedFileProvider(typeof(ManagerModuleExtensions).Assembly, "Piranha.Manager.assets.dist"),
+                FileProvider = new EmbeddedFileProvider(typeof(SpamDetectorModule).Assembly, "Zon3.SpamDetector.assets.dist"),
                 RequestPath = "/manager/assets"
             });
         }

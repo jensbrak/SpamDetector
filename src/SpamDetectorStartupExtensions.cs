@@ -29,10 +29,10 @@ namespace Zon3.SpamDetector
             return serviceBuilder;
         }
 
-        public static PiranhaApplicationBuilder UseSpamDetector(this PiranhaApplicationBuilder applicatoinBuilder)
+        public static PiranhaApplicationBuilder UseSpamDetector(this PiranhaApplicationBuilder applicationBuilder)
         {
-            applicatoinBuilder.Builder.UseSpamDetector();
-            applicatoinBuilder.Builder.UseEndpoints(endpoints =>
+            applicationBuilder.Builder.UseSpamDetector();
+            applicationBuilder.Builder.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
@@ -41,7 +41,7 @@ namespace Zon3.SpamDetector
                 endpoints.MapPiranhaManager();
             });
 
-            return applicatoinBuilder;
-        }
+            return applicationBuilder;
+            }
     }
 }

@@ -15,15 +15,13 @@ namespace Zon3.SpamDetector.Controllers
     public class SpamDetectorConfigApiController : Controller
     {
         private readonly SpamDetectorConfigService _configService;
-        private readonly ManagerLocalizer _localizer;
 
-        public SpamDetectorConfigApiController(SpamDetectorConfigService configService, ManagerLocalizer localizer)
+        public SpamDetectorConfigApiController(SpamDetectorConfigService configService)
         {
             _configService = configService;
-            _localizer = localizer;
         }
 
-        [Route("")]
+        [Route("list")]
         [HttpGet]
         [Authorize(Policy = Permission.Config)]
         public SpamDetectorConfigEditModel List()

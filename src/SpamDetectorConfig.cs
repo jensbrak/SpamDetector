@@ -9,13 +9,14 @@ namespace Zon3.SpamDetector
     {
         private readonly IParamService _service;
 
-        public static readonly string ENABLED = "Enabled";
-        public static readonly string IS_TEST = "IsTest";
-        public static readonly string SPAM_API_URL = "SpamApiUrl";
-        public static readonly string SITE_URL = "SiteUrl";
-        public static readonly string SITE_LANGUAGE = "SiteLanguage";
-        public static readonly string SITE_ENCODING = "SiteEncoding";
-        public static readonly string USER_ROLE = "UserRole";
+        public static readonly string MODULE_PREFIX = "SpamDetector_";
+        public static readonly string ENABLED = $"{MODULE_PREFIX}Enabled";
+        public static readonly string IS_TEST = $"{MODULE_PREFIX}IsTest";
+        public static readonly string SPAM_API_URL = $"{MODULE_PREFIX}SpamApiUrl";
+        public static readonly string SITE_URL = $"{MODULE_PREFIX}SiteUrl";
+        public static readonly string SITE_LANGUAGE = $"{MODULE_PREFIX}SiteLanguage";
+        public static readonly string SITE_ENCODING = $"{MODULE_PREFIX}SiteEncoding";
+        public static readonly string USER_ROLE = $"{MODULE_PREFIX}UserRole";
 
         public SpamDetectorConfig(IParamService paramService)
         {
@@ -32,7 +33,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(ENABLED).GetAwaiter().GetResult();
-                return param != null && Convert.ToBoolean(param.Value);
+                return param == null || Convert.ToBoolean(param.Value);
             }
             set
             {
@@ -46,82 +47,21 @@ namespace Zon3.SpamDetector
             }
         }
 
-        public string SiteUrl
+        public bool IsTest
         {
             get
             {
-                var param = _service.GetByKeyAsync(SITE_URL).GetAwaiter().GetResult();
-                return param?.Value;
+                var param = _service.GetByKeyAsync(IS_TEST).GetAwaiter().GetResult();
+                return param == null || Convert.ToBoolean(param.Value);
             }
             set
             {
-                var param = _service.GetByKeyAsync(SITE_URL).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(IS_TEST).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = SITE_URL
+                    Key = IS_TEST
                 };
 
-                // Ensure trailing slash
-                if (!string.IsNullOrWhiteSpace(value) && !value.EndsWith("/"))
-                    value += "/";
-
-                param.Value = value;
-                _service.SaveAsync(param).GetAwaiter().GetResult();
-            }
-        }
-
-        public string SiteLanguage
-        {
-            get
-            {
-                var param = _service.GetByKeyAsync(SITE_LANGUAGE).GetAwaiter().GetResult();
-                return param?.Value;
-            }
-            set
-            {
-                var param = _service.GetByKeyAsync(SITE_LANGUAGE).GetAwaiter().GetResult() ?? new Param
-                {
-                    Key = SITE_LANGUAGE
-                };
-
-                param.Value = value;
-                _service.SaveAsync(param).GetAwaiter().GetResult();
-            }
-        }
-
-        public string SiteEncoding
-        {
-            get
-            {
-                var param = _service.GetByKeyAsync(SITE_ENCODING).GetAwaiter().GetResult();
-                return param?.Value;
-            }
-            set
-            {
-                var param = _service.GetByKeyAsync(SITE_ENCODING).GetAwaiter().GetResult() ?? new Param
-                {
-                    Key = SITE_ENCODING
-                };
-
-                param.Value = value;
-                _service.SaveAsync(param).GetAwaiter().GetResult();
-            }
-        }
-
-        public string UserRole
-        {
-            get
-            {
-                var param = _service.GetByKeyAsync(USER_ROLE).GetAwaiter().GetResult();
-                return param?.Value;
-            }
-            set
-            {
-                var param = _service.GetByKeyAsync(USER_ROLE).GetAwaiter().GetResult() ?? new Param
-                {
-                    Key = USER_ROLE
-                };
-
-                param.Value = value;
+                param.Value = value.ToString();
                 _service.SaveAsync(param).GetAwaiter().GetResult();
             }
         }
@@ -140,30 +80,83 @@ namespace Zon3.SpamDetector
                     Key = SPAM_API_URL
                 };
 
-                // Ensure trailing slash
-                if (!string.IsNullOrWhiteSpace(value) && !value.EndsWith("/"))
-                    value += "/";
+                param.Value = value;
+                _service.SaveAsync(param).GetAwaiter().GetResult();
+            }
+        }
+
+        public string SiteUrl
+        {
+            get
+            {
+                var param = _service.GetByKeyAsync(SITE_URL).GetAwaiter().GetResult();
+                return param?.Value;
+            }
+            set
+            {
+                var param = _service.GetByKeyAsync(SITE_URL).GetAwaiter().GetResult() ?? new Param
+                {
+                    Key = SITE_URL
+                };
 
                 param.Value = value;
                 _service.SaveAsync(param).GetAwaiter().GetResult();
             }
         }
 
-        public bool IsTest
+        public string SiteLanguage
         {
             get
             {
-                var param = _service.GetByKeyAsync(IS_TEST).GetAwaiter().GetResult();
-                return param != null && Convert.ToBoolean(param.Value);
+                var param = _service.GetByKeyAsync(SITE_LANGUAGE).GetAwaiter().GetResult();
+                return param == null ? "en-US" : param.Value;
             }
             set
             {
-                var param = _service.GetByKeyAsync(IS_TEST).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(SITE_LANGUAGE).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = IS_TEST
+                    Key = SITE_LANGUAGE
                 };
 
-                param.Value = value.ToString();
+                param.Value = value;
+                _service.SaveAsync(param).GetAwaiter().GetResult();
+            }
+        }
+
+        public string SiteEncoding
+        {
+            get
+            {
+                var param = _service.GetByKeyAsync(SITE_ENCODING).GetAwaiter().GetResult();
+                return param == null ? "UTF8" : param.Value;
+            }
+            set
+            {
+                var param = _service.GetByKeyAsync(SITE_ENCODING).GetAwaiter().GetResult() ?? new Param
+                {
+                    Key = SITE_ENCODING
+                };
+
+                param.Value = value;
+                _service.SaveAsync(param).GetAwaiter().GetResult();
+            }
+        }
+
+        public string UserRole
+        {
+            get
+            {
+                var param = _service.GetByKeyAsync(USER_ROLE).GetAwaiter().GetResult();
+                return param == null ? "guest" : param.Value;
+            }
+            set
+            {
+                var param = _service.GetByKeyAsync(USER_ROLE).GetAwaiter().GetResult() ?? new Param
+                {
+                    Key = USER_ROLE
+                };
+
+                param.Value = value;
                 _service.SaveAsync(param).GetAwaiter().GetResult();
             }
         }

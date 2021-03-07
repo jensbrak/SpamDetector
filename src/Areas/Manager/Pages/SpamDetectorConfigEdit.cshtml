@@ -8,7 +8,7 @@
 }
 @section script
 {
-    <script src="~/manager/js/zon3.spamdetector.js"></script>
+    <script src="~/manager/assets/js/zon3.spamdetector.js"></script>
 }
 
 <div id="spamdetector">
@@ -33,7 +33,7 @@
     <div class="container-fluid mb-3 app" :class="{ ready: !loading }">
         <div class="card">
             <div class="card-header">
-                <span class="title">Spam Detector</span>
+                <span class="title">API config</span>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
@@ -82,7 +82,7 @@
 
         <div class="card">
             <div class="card-header">
-                <span class="title">Submission Data</span>
+                <span class="title">Site config</span>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
@@ -95,7 +95,7 @@
                                 </span>
                             </div>
                             <div class="col-md-4">
-                                <input v-model="model.spamApiUrl" class="form-control" type="text">
+                                <input v-model="model.siteUrl" class="form-control" type="text">
                             </div>
                         </div>
                     </li>
