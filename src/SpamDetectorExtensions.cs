@@ -21,7 +21,7 @@ namespace Zon3.SpamDetector
         /// <param name="services">The current service collection</param>
         /// <param name="scope">The optional service scope. Default is singleton</param>
         /// <returns>The service collection</returns>
-        public static IServiceCollection AddSpamDetector(this IServiceCollection services)
+        public static IServiceCollection AddSpamDetector<T>(this IServiceCollection services, ServiceLifetime scope = ServiceLifetime.Scoped)
         {
             App.Modules.Register<SpamDetectorModule>();
 
@@ -31,11 +31,12 @@ namespace Zon3.SpamDetector
             }
 
             services.AddScoped<SpamDetectorConfigService>();
+            services.Add(new ServiceDescriptor(typeof(ISpamDetector), typeof(T), scope));
 
             return services;
         }
 
-        public static IApplicationBuilder UseSpamDetector(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseSpamDetector<T>(this IApplicationBuilder builder)
         {
             return builder.UseStaticFiles(new StaticFileOptions
             {

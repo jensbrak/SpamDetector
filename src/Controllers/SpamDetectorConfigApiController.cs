@@ -45,7 +45,7 @@ namespace Zon3.SpamDetector.Controllers
                     Status = new StatusMessage
                     {
                         Type = StatusMessage.Error,
-                        Body = "An error occurred while saving"
+                        Body = "An error occurred while saving Spam Detector config"
                     }
                 };
             }
@@ -54,7 +54,7 @@ namespace Zon3.SpamDetector.Controllers
                 Status = new StatusMessage
                 {
                     Type = StatusMessage.Success,
-                    Body = "The config was successfully saved"
+                    Body = "Spam Detector config was successfully saved"
                 }
             };
         }

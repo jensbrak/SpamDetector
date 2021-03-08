@@ -9,12 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Zon3.SpamDetector.Models;
+using Zon3.SpamDetector.Services;
 
 namespace Zon3.SpamDetector
 {
     public class AkismetSpamDetector : SpamDetector
     {
-        public AkismetSpamDetector(IApi piranhaApi, SpamDetectorConfigEditModel configEditModel, IHttpClientFactory clientFactory, ILoggerFactory logger) : base(piranhaApi, configEditModel, clientFactory, logger)
+        public AkismetSpamDetector(IApi piranhaApi, SpamDetectorConfigService configService, IHttpClientFactory clientFactory, ILoggerFactory logger) : base(piranhaApi, configService, clientFactory, logger)
         {
             // Intentionally left empty
         }

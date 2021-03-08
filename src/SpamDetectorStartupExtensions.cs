@@ -20,18 +20,18 @@ namespace Zon3.SpamDetector
         /// <param name="serviceBuilder">The service builder</param>
         /// <param name="scope">The optional service scope. Default is singleton</param>
         /// <returns>The updated builder</returns>
-        public static PiranhaServiceBuilder UseSpamDetector(this PiranhaServiceBuilder serviceBuilder)
+        public static PiranhaServiceBuilder UseSpamDetector<T>(this PiranhaServiceBuilder serviceBuilder, ServiceLifetime scope = ServiceLifetime.Scoped)
         {
             serviceBuilder.Services.AddControllersWithViews();
             serviceBuilder.Services.AddRazorPages();
-            serviceBuilder.Services.AddSpamDetector();
+            serviceBuilder.Services.AddSpamDetector<T>();
 
             return serviceBuilder;
         }
 
-        public static PiranhaApplicationBuilder UseSpamDetector(this PiranhaApplicationBuilder applicationBuilder)
+        public static PiranhaApplicationBuilder UseSpamDetector<T>(this PiranhaApplicationBuilder applicationBuilder)
         {
-            applicationBuilder.Builder.UseSpamDetector();
+            applicationBuilder.Builder.UseSpamDetector<T>();
             applicationBuilder.Builder.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

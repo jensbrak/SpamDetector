@@ -47,15 +47,16 @@ spamdetector = new Vue({
                     isTest: spamdetector.model.isTest
                 })
             })
-            .then(function (response) { return response.json(); })
+            .then(function (response) {
+                return response.json();
+            })
             .then(function (result) {
-                // Push status to notification hub
-                notifications.push(result.status);
+                piranha.notifications.push(result.status);
             })
             .catch(function (error) {
                 console.log("error:", error);
             });
-        },
+        }
     },
     created: function () {
         this.load();
