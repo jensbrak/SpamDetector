@@ -13,7 +13,7 @@ namespace Zon3.SpamDetector
         /// <summary>
         /// Gets the Author
         /// </summary>
-        public string Author => "jensbrak";
+        public string Author => "Jens Bråkenhielm";
 
         /// <summary>
         /// Gets the Name

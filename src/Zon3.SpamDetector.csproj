@@ -6,7 +6,7 @@
 	
 	<AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <Version>1.1.0-beta</Version> 
+    <Version>1.1.0-rc1</Version> 
 	
 	<Authors>Jens Bråkenhielm</Authors>
     <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
@@ -27,8 +27,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
-    <PackageReference Include="Piranha" Version="9.0.0-rc2" />
-    <PackageReference Include="Piranha.Manager" Version="9.0.0-rc2" />
+    <PackageReference Include="Piranha" Version="9.0.0" />
+    <PackageReference Include="Piranha.Manager" Version="9.0.0" />
   </ItemGroup>
   
   <ItemGroup>

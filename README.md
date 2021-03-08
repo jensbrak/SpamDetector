@@ -46,42 +46,39 @@ https://github.com/jensbrak/SpamDetector/blob/master/Examples/
 ## Code
 1. Add a reference to `Zon3.SpamDetector` in your Piranha project
 1. In `Startup.cs` register reqired services and hooks: 
-    1. Register `SpamDetector` service using `SpamDetectorOptions` for settings
-    1. Register `SpamDetector` as a Comment hook after Piranha has been)
+    1. Register `SpamDetector` service
+    1. Register a Comment validation hook calling `SpamDetector.ReviewAsync(Comment c)` that validates comments 
 
 ## Settings
-The class `SpamDetectorOptions` defines the options that can be set for SpamDetector. The options available are:
+The module adds a section to the Manager with the settings available:
 
-* `Enabled` (optional, default: `true`): If false, module will not send requests and leave comments unreviewed
-* `SpamApiUrl` (Required): the complete URL to the API to use for spam detection
-* `SiteUrl` (optional): the base URL of the site the comments are posted on. See Note 1. 
-* `SiteLanguage` (optional, default: `"en-US"`): The language of the site the comments are posted on 
-* `SiteEncoding` (optional, default: `"UTF8"`): The encoding of the site the comments are posted on
-* `UserRole` (optional, default: `"guest"`): The name of the user role comments are posted as
-* `IsTest` (optional, default: `true`): If true, all requests are marked 'test'. See Note 2.
+* Enabled (optional, default: `true`): If false, module will not send requests and leave comments unreviewed
+* IsTest (optional, default: `true`): If true, all requests are marked 'test'. See Note 1.
+* Spam Api Url (Required): the complete URL to the API to use for spam detection
+* Site Url (optional): the base URL of the site the comments are posted on. See Note 2. 
+* Site Language (optional, default: `"en-US"`): The language of the site the comments are posted on 
+* Site Encoding (optional, default: `"UTF8"`): The encoding of the site the comments are posted on
+* User Role (optional, default: `"guest"`): The name of the user role comments are posted as
 
-_Note 1: While SpamDetector will run without `SiteUrl` defined, it is highly recommended to set it to get reliable results. However, while testing it shouldn't matter (see `IsTest`)._
+_Note 1: While optional, the value of `IsTest` will have to be changed to `false` eventually. The reason for having to do this explicitly is to prevent undesired live requests to the API while setting up and testing._
 
-_Note 2: While optional, the value of `IsTest` will have to be changed to `false` eventually. The reason for having to do this explicitly is to prevent undesired live requests to the API while setting up and testing._
+_Note 2: While SpamDetector will run without `SiteUrl` defined, it is highly recommended to set it to get reliable results. However, while testing it shouldn't matter (see `IsTest`)._
 
 
 # Code snippets
-## Registering services
+## Configuring services
 ```csharp
         public void ConfigureServices(IServiceCollection services)
         {
-			services.Configure<SpamDetectorOptions>(_config.GetSection(SpamDetectorOptions.Identifier));
-
             services.AddPiranha(options =>
             {
                 // (Standard Piranha setup code removed for brevity)
 
-                options.UseSpamDetector<AkismetSpamDetector>(o => 
-                    _config.GetSection(SpamDetectorOptions.Identifier).Bind(o));            
+				options.UseSpamDetector<AkismetSpamDetector>();
 
 ```
 
-## Adding Comment Hook
+## Configuring middleware & addding comment hook
 ```csharp
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApi api)
         {
@@ -89,27 +86,21 @@ _Note 2: While optional, the value of `IsTest` will have to be changed to `false
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // (Standard Piranha configuration code removed for brevity)
-
+			// (Standard Piranha setup code removed for brevity)
+			
+            // Middleware setup
+            app.UsePiranha(options => {
+                options.UseManager();
+                options.UseTinyMCE();
+                options.UseIdentity();
+				options.UseSpamDetector<AkismetSpamDetector>();
+            });
+			
             App.Hooks.Comments.RegisterOnValidate(c =>
             {
                 using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-                ISpamDetector commentModerator = serviceScope.ServiceProvider.GetRequiredService<ISpamDetector>();
-                c.IsApproved = commentModerator.ReviewAsync(c).Result.Approved;
+                var spamDetector = serviceScope.ServiceProvider.GetRequiredService<SpamDetector>();
+                var reviewResult = spamDetector.ReviewAsync(c).Result;
+                c.IsApproved = reviewResult.Approved;
             });
-        }
-```
-
-## Sample appsettings.json section
-A minimal section for SpamDetecor would be:
-
-```json
-    "SpamDetector": {
-        "SpamApiUrl": "https://<yourakismetapikeyhere>.rest.akismet.com/1.1/comment-check",
-        "SiteUrl": "https://<yourawesomepiranhasitehere>",
-        "IsTest": true
-    }
-```
-
-_Note: Only set `IsTest` to false when confident everything is properly setup and working_
+```			
