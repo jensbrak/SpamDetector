@@ -1,0 +1,145 @@
+﻿@page "~/manager/spamdetector"
+@model SpamDetectorConfigEditModel
+@inject IAuthorizationService Auth
+@inject ManagerLocalizer Localizer
+@{
+    ViewBag.Title = "Spam Detector Config";
+    ViewBag.MenuItem = "spamdetector";
+}
+@section script
+{
+    <script src="~/manager/assets/js/zon3.spamdetector.js"></script>
+}
+
+<div id="spamdetector">
+    <div class="top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">System</li>
+                <li class="breadcrumb-item active" aria-current="page">SpamDetector</li>
+            </ol>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="top-nav">
+                @foreach (var action in Piranha.Manager.Actions.Toolbars.ConfigEdit)
+                {
+                    <partial name="@action.ActionView" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mb-3 app" :class="{ ready: !loading }">
+        <div class="card">
+            <div class="card-header">
+                <span class="title">API config</span>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <strong class="d-block">Enable SpamDetector module</strong>
+                                <span class="text-secondary">
+                                    If the SpamDetector module should review comments to detect spam.
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <button v-on:click.prevent="model.enabled = !model.enabled" class="switch switch-lg" :aria-pressed="model.enabled"><span></span></button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <strong class="d-block">Test mode</strong>
+                                <span class="text-secondary">
+                                    If the SpamDetector module is in test mode, the comment reviews are made without affecting spam heuristics.
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <button v-on:click.prevent="model.isTest = !model.isTest" class="switch switch-lg" :aria-pressed="model.isTest"><span></span></button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <strong class="d-block">API URL</strong>
+                                <span class="text-secondary">
+                                    The full URL to the external API to use for spam detection.
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <input v-model="model.spamApiUrl" class="form-control" type="text">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="title">Site config</span>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <strong class="d-block">Site URL</strong>
+                                <span class="text-secondary">
+                                    The full URL to the site sending comments for review to the API.
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <input v-model="model.siteUrl" class="form-control" type="text">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <strong class="d-block">Site language</strong>
+                                <span class="text-secondary">
+                                    The language of the site sending comments for review to the API.
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <input v-model="model.siteLanguage" class="form-control" type="text">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <strong class="d-block">Site encoding</strong>
+                                <span class="text-secondary">
+                                    The encoding of the site sending comments for review to the API.
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <input v-model="model.siteEncoding" class="form-control" type="text">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <strong class="d-block">User role</strong>
+                                <span class="text-secondary">
+                                    Name of the user role that can submit comments to the site.
+                                </span>
+                            </div>
+                            <div class="col-md-4">
+                                <input v-model="model.userRole" class="form-control" type="text">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

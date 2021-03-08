@@ -15,6 +15,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Zon3.SpamDetector.Models;
+using Zon3.SpamDetector.Services;
 
 namespace Zon3.SpamDetector
 {
@@ -33,39 +35,46 @@ namespace Zon3.SpamDetector
 
         protected IHttpClientFactory _httpClientFactory;
 
-        protected SpamDetectorOptions _options;
+        protected SpamDetectorConfigEditModel _configEditModel;
 
         protected Guid _commentId;
 
-        public bool Enabled => _options.Enabled;
+        public bool Enabled => _configEditModel.Enabled;
 
-        public SpamDetector(IApi piranhaApi, IOptions<SpamDetectorOptions> options, IHttpClientFactory clientFactory, ILoggerFactory logger)
+        public SpamDetector(IApi piranhaApi, SpamDetectorConfigService configService, IHttpClientFactory clientFactory, ILoggerFactory logger)
         {
             _piranha = piranhaApi;
             _httpClientFactory = clientFactory;
-            _options = options.Value;
+            _configEditModel = configService.Get();
 
             if (logger != null)
             {
                 _logger = logger.CreateLogger(this.GetType().FullName);
             }
 
-            if (string.IsNullOrEmpty(_options.SpamApiUrl))
+            if (string.IsNullOrEmpty(_configEditModel.SpamApiUrl))
             {
                 var msg = $"Option SpamApiUrl is missing: value mandatory";
                 _logger.LogError(msg);
                 throw new InvalidOperationException(msg);
             }
 
-            if (string.IsNullOrEmpty(_options.SiteUrl))
+            if (string.IsNullOrEmpty(_configEditModel.SiteUrl))
             {
                 _logger.LogWarning("Option SiteUrl is missing: results may be wrong");
             }
 
-            if (_options.IsTest)
+            if (_configEditModel.IsTest)
             {
                 _logger.LogWarning("Option IsTest is true: no live requests will be made");
             }
+
+            /*
+            App.Hooks.Comments.RegisterOnValidate(c =>
+            {
+                c.IsApproved = ReviewAsync(c).Result.Approved;
+            });
+            */
         }
 
         public async Task<CommentReview> ReviewAsync(Comment comment)
@@ -75,10 +84,9 @@ namespace Zon3.SpamDetector
             // If not enabled, warn and use existing value for comment  
             if (!Enabled)
             {
-                var msg = $"Option Enabled is false: no review for comment '{_commentId}' made";
-                _logger.LogWarning(msg);
+                _logger.LogWarning($"Option Enabled is false: no review for comment '{_commentId}' made");
 
-                return new CommentReview() { Approved = comment.IsApproved, Information = msg };
+                return new CommentReview() { Approved = comment.IsApproved };
             }
 
             // Get a client for API request

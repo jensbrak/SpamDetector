@@ -1,10 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Piranha;
 using Piranha.Services;
 using System;
 using System.Linq;
 using System.Net.Http;
+using Microsoft.AspNetCore.Builder;
+using Zon3.SpamDetector.Models;
+using Microsoft.Extensions.FileProviders;
+using Zon3.SpamDetector.Services;
 
 namespace Zon3.SpamDetector
 {
@@ -16,27 +21,33 @@ namespace Zon3.SpamDetector
         /// <param name="services">The current service collection</param>
         /// <param name="scope">The optional service scope. Default is singleton</param>
         /// <returns>The service collection</returns>
-        public static IServiceCollection AddSpamDetector<T>(
-            this IServiceCollection services,
-            Action<SpamDetectorOptions> options,
-            ServiceLifetime scope = ServiceLifetime.Scoped)
+        public static IServiceCollection AddSpamDetector<T>(this IServiceCollection services, ServiceLifetime scope = ServiceLifetime.Scoped)
         {
-            if (options == null)
-            {
-                throw new ArgumentNullException(nameof(options), "SpamDetector require valid SpamDetectorOptions");
-            }
+            App.Modules.Register<SpamDetectorModule>();
 
-            if (!services.Any(s => s.ServiceType == typeof(IHttpClientFactory)))
+            if (services.All(s => s.ServiceType != typeof(IHttpClientFactory)))
             {
                 services.AddHttpClient();
             }
 
-            services.Configure(options);
-            App.Modules.Register<SpamDetectorModule>();
+            services.AddScoped<SpamDetectorConfigService>();
             services.Add(new ServiceDescriptor(typeof(ISpamDetector), typeof(T), scope));
 
             return services;
         }
 
+        public static IApplicationBuilder UseSpamDetector<T>(this IApplicationBuilder builder)
+        {
+            return builder.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new EmbeddedFileProvider(typeof(SpamDetectorModule).Assembly, "Zon3.SpamDetector.assets.dist"),
+                RequestPath = "/manager/assets"
+            });
+        }
+
+        public static void MapSpamDetector(this IEndpointRouteBuilder builder)
+        {
+            builder.MapRazorPages();
+        }
     }
 }

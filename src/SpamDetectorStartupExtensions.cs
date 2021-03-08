@@ -7,6 +7,8 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Builder;
+using Piranha.AspNetCore;
 
 namespace Zon3.SpamDetector
 {
@@ -18,14 +20,28 @@ namespace Zon3.SpamDetector
         /// <param name="serviceBuilder">The service builder</param>
         /// <param name="scope">The optional service scope. Default is singleton</param>
         /// <returns>The updated builder</returns>
-        public static PiranhaServiceBuilder UseSpamDetector<T>(
-            this PiranhaServiceBuilder serviceBuilder,
-            Action<SpamDetectorOptions> options,
-            ServiceLifetime scope = ServiceLifetime.Scoped)
+        public static PiranhaServiceBuilder UseSpamDetector<T>(this PiranhaServiceBuilder serviceBuilder, ServiceLifetime scope = ServiceLifetime.Scoped)
         {
-            serviceBuilder.Services.AddSpamDetector<T>(options, scope);
+            serviceBuilder.Services.AddControllersWithViews();
+            serviceBuilder.Services.AddRazorPages();
+            serviceBuilder.Services.AddSpamDetector<T>();
 
             return serviceBuilder;
         }
+
+        public static PiranhaApplicationBuilder UseSpamDetector<T>(this PiranhaApplicationBuilder applicationBuilder)
+        {
+            applicationBuilder.Builder.UseSpamDetector<T>();
+            applicationBuilder.Builder.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapPiranhaManager();
+            });
+
+            return applicationBuilder;
+            }
     }
 }

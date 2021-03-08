@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace Zon3.SpamDetector
+namespace Zon3.SpamDetector.Models
 {
-    /// <summary>
-    /// Options for SpamDetector with default values 
-    /// </summary>
-    public class SpamDetectorOptions
+    public class SpamDetectorConfigEditModel
     {
-        public const string Identifier = "SpamDetector";
         public bool Enabled { get; set; } = true;
+        public bool IsTest { get; set; } = true;
         public string SpamApiUrl { get; set; }
-        public string SiteUrl { get; set; } 
+        public string SiteUrl { get; set; }
         public string SiteLanguage { get; set; } = "en-US";
         public string SiteEncoding { get; set; } = "UTF8";
         public string UserRole { get; set; } = "guest";
-        public bool IsTest { get; set; } = true;
     }
 }
