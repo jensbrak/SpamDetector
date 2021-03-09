@@ -52,18 +52,19 @@ https://github.com/jensbrak/SpamDetector/blob/master/Examples/
 ## Settings
 The module adds a section to the Manager with the settings available:
 
-* Enabled (optional, default: `true`): If false, module will not send requests and leave comments unreviewed
-* IsTest (optional, default: `true`): If true, all requests are marked 'test'. See Note 1.
-* Spam Api Url (Required): the complete URL to the API to use for spam detection
-* Site Url (optional): the base URL of the site the comments are posted on. See Note 2. 
-* Site Language (optional, default: `"en-US"`): The language of the site the comments are posted on 
-* Site Encoding (optional, default: `"UTF8"`): The encoding of the site the comments are posted on
-* User Role (optional, default: `"guest"`): The name of the user role comments are posted as
+* Enabled (default: `true`): If false, module will not send requests and leave comments unreviewed
+* IsTest (default: `true`): If true, all requests are marked 'test'. See Note 1.
+* Spam Api Url: the complete URL to the API to use for spam detection
+* Site Url: the base URL of the site the comments are posted on. See Note 2. 
+* Site Language (default: `"en-US"`): The language of the site the comments are posted on 
+* Site Encoding (default: `"UTF8"`): The encoding of the site the comments are posted on
+* User Role (default: `"guest"`): The name of the user role comments are posted as
 
 _Note 1: While optional, the value of `IsTest` will have to be changed to `false` eventually. The reason for having to do this explicitly is to prevent undesired live requests to the API while setting up and testing._
 
 _Note 2: While SpamDetector will run without `SiteUrl` defined, it is highly recommended to set it to get reliable results. However, while testing it shouldn't matter (see `IsTest`)._
 
+![image](https://user-images.githubusercontent.com/52660827/110434774-8511c380-80b2-11eb-8d69-71ea4f91533e.png)
 
 # Code snippets
 ## Configuring services
