@@ -46,7 +46,7 @@ namespace RazorWeb
                     db.UseSqlite(_config.GetConnectionString("piranha")));
                 options.UseIdentityWithSeed<IdentitySQLiteDb>(db =>
                     db.UseSqlite(_config.GetConnectionString("piranha")));
-				options.UseSpamDetector<AkismetSpamDetector>();  // <-- 2. SpamDetector service using Akismet registered 
+                options.UseSpamDetector<AkismetSpamDetector>();  // <-- 2. SpamDetector service using Akismet registered 
 
                 /***
                  * Here you can configure the different permissions
@@ -85,22 +85,21 @@ namespace RazorWeb
                 options.UseManager();
                 options.UseTinyMCE();
                 options.UseIdentity();
-				options.UseSpamDetector<AkismetSpamDetector>(); // <-- 3. SpamDetector service using Akismet configured 
+		options.UseSpamDetector<AkismetSpamDetector>(); // <-- 3. SpamDetector service using Akismet configured 
             });
 			
-			// 4. Add hook. SpamDetector use OnValidate hook to moderate comments
+            // 4. Add hook. SpamDetector use OnValidate hook to moderate comments
             App.Hooks.Comments.RegisterOnValidate(c =>
             {
                 using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
                 var spamDetector = serviceScope.ServiceProvider.GetRequiredService<SpamDetector>();
 				
-				// SpamDetector will call Akismet API to review the comment and then return the result
+                // SpamDetector will call Akismet API to review the comment and then return the result
                 var reviewResult = spamDetector.ReviewAsync(c).Result;
 				
-				// This updates the comment submitted with the result of the antispam review
+                // This updates the comment submitted with the result of the antispam review
                 c.IsApproved = reviewResult.Approved;
             });
         }
-
     }
 }
