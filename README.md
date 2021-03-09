@@ -87,21 +87,38 @@ _Note 2: While SpamDetector will run without `SiteUrl` defined, it is highly rec
             {
                 app.UseDeveloperExceptionPage();
             }
-			// (Standard Piranha setup code removed for brevity)
-			
+
+            // Initialize Piranha
+            App.Init(api);
+
+            // Build content types
+            new ContentTypeBuilder(api)
+                .AddAssembly(typeof(Startup).Assembly)
+                .Build()
+                .DeleteOrphans();
+
+            // Configure Tiny MCE
+            EditorConfig.FromFile("editorconfig.json");
+
             // Middleware setup
             app.UsePiranha(options => {
                 options.UseManager();
                 options.UseTinyMCE();
                 options.UseIdentity();
-				options.UseSpamDetector<AkismetSpamDetector>();
+		options.UseSpamDetector<AkismetSpamDetector>(); // <-- SpamDetector using Akismet implementation
             });
-			
+
+            // SpamDetector use OnValidate hook to moderate comments
             App.Hooks.Comments.RegisterOnValidate(c =>
             {
                 using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
                 var spamDetector = serviceScope.ServiceProvider.GetRequiredService<SpamDetector>();
+		
+		// SpamDetector will call Akismet API to review the comment and then return the result
                 var reviewResult = spamDetector.ReviewAsync(c).Result;
+		
+		// This updates the comment submitted with the result of the antispam review
                 c.IsApproved = reviewResult.Approved;
             });
+        }
 ```			
