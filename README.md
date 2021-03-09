@@ -39,13 +39,18 @@ Please go ahead and try it out by posting a comment with a greeting on my blog. 
 My PiranhaCMS demo site: https://zon3.se 
 
 # Usage
-See Code snippets below for pointers.
+See Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) file. The file is from the [piranha.razor](https://piranhacms.org/docs/master/basics/project-templates) template with relevant code added.
 
-## Code
-1. Add a reference to `Zon3.SpamDetector` in your Piranha project
-1. In `Startup.cs` register reqired services and hooks: 
-    1. Register `SpamDetector` service
-    1. Register a Comment validation hook calling `SpamDetector.ReviewAsync(Comment c)` that validates comments 
+## Instructions
+1. Get and add the SpamDetector module to your Piranha project, either by source or package:
+	1. Using source code: Downloading the source code and add a project reference to `Zon3.SpamDetector.csproj` _OR_
+	1. Using NuGet package manager: Add the SpamDetector package as a NuGet dependency  
+1. Add a reference to `Zon3.SpamDetector` in your Piranha project startup file
+1. In `Startup.cs` add code to register SpamDetector service and middleware and attach it to the proper hook: 
+    1. Register `SpamDetector` service 
+	1. Register `SpamDetector` middleware
+    1. Register a Comment validation hook and call `SpamDetector.ReviewAsync(Comment c)` to get validation result.
+	1. Make sure the hook use the validation to set the comment status (`IsApproved`)
 
 ## Settings
 The module adds a section to the Manager with the settings available:
