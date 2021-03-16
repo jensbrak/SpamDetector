@@ -30,6 +30,11 @@ namespace Zon3.SpamDetector
                 services.AddHttpClient();
             }
 
+            // Add module dependency service instances
+            services.AddSingleton(s => new EmbeddedFileProvider(typeof(SpamDetectorModule).Assembly, "Zon3.SpamDetector.assets.dist"));
+            services.AddSingleton(s => new SpamDetectorMarkdownService(s.GetRequiredService<EmbeddedFileProvider>(), "doc"));
+
+            // Add the Manager config service and the module service
             services.AddScoped<SpamDetectorConfigService>();
             services.Add(new ServiceDescriptor(typeof(ISpamDetector), typeof(T), scope));
 
@@ -40,7 +45,7 @@ namespace Zon3.SpamDetector
         {
             return builder.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new EmbeddedFileProvider(typeof(SpamDetectorModule).Assembly, "Zon3.SpamDetector.assets.dist"),
+                FileProvider = builder.ApplicationServices.GetRequiredService<EmbeddedFileProvider>(),
                 RequestPath = "/manager/assets"
             });
         }

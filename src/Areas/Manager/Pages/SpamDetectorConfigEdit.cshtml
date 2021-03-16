@@ -22,9 +22,9 @@
 
         <div class="container-fluid">
             <div class="top-nav">
-                @foreach (var action in Piranha.Manager.Actions.Toolbars.ConfigEdit)
+                @foreach (var menuAction in Zon3.SpamDetector.Actions.Toolbars.SpamDetectorConfigEdit)
                 {
-                    <partial name="@action.ActionView" />
+                    <partial name="@menuAction.ActionView" />
                 }
             </div>
         </div>
@@ -142,4 +142,6 @@
             </div>
         </div>
     </div>
+
+    <partial name="Partial/_SpamDetectorInfo" />
 </div>

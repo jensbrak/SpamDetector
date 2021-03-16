@@ -9,8 +9,9 @@ spamdetector = new Vue({
             siteLanguage: null,
             siteEncoding: null,
             userRole: null,
-            isTest: true
-        }
+            isTest: true            
+        },
+        selectedInfo: "uid-about"
     },
     methods: {
         load: function () {
@@ -56,7 +57,13 @@ spamdetector = new Vue({
             .catch(function (error) {
                 console.log("error:", error);
             });
-        }
+        },
+        selectInfo: function (uid) {
+            this.selectedInfo = uid;
+            Vue.nextTick(function () {
+                piranha.editor.refreshMarkdown();
+            });
+        },
     },
     created: function () {
         this.load();

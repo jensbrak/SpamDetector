@@ -6,7 +6,7 @@
 	
 	<AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <Version>1.1.0-rc1</Version> 
+    <Version>1.2.0-rc1</Version> 
 	
 	<Authors>Jens Bråkenhielm</Authors>
     <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
@@ -32,17 +32,14 @@
   </ItemGroup>
   
   <ItemGroup>
+    <EmbeddedResource Include="assets\dist\**\*" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <None Include="..\Resources\PhiddleLogo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedResource Include="assets\dist\**\*" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="assets\dist\js\zon3.spamdetector.js" />
-  </ItemGroup>
 </Project>

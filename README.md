@@ -1,47 +1,27 @@
-# SpamDetector
-| Server | Status |
+# SpamDetector| Server | Status |
 | ------ | ------ |
 | AppVeyor | [![Build status](https://ci.appveyor.com/api/projects/status/x55tk8vtffvt354b?svg=true)](https://ci.appveyor.com/project/jensbrak/spamdetector) |
-| NuGet | [![Nuget](https://img.shields.io/nuget/v/Zon3.SpamDetector)](https://www.nuget.org/packages/Zon3.SpamDetector) |
+| NuGet | [![Nuget](https://img.shields.io/nuget/v/Zon3.SpamDetector)](https://www.nuget.org/packages/Zon3.SpamDetector) |
+# About## SpamDetector
+Project page: [zon3.se/spamdetector](https://zon3.se/spamdetector)
 
-Spam Detection Module for PiranhaCMS using Akismet API.
-
-# About
-A [PiranhaCMS](https://github.com/PiranhaCMS "Piranha CMS at GitHub") module that use Akismet to validate comments submitted to a Piranha Page or Post. This is done by providing Akismet with details from the comment and the site using the module. If the comment is considered to be spam by Akismet, it will not be approved by Piranha. Comments in Piranha Manager are either approved or pending which means (when the module is active): all comments marked approved has been verified as non-spam by the module and all comments marked as pending is spam (and can be removed).
-
-_Please note: using the module as a Comment Validation Hook will override the Manager Config setting for Approve Comments. This means that regardless of that setting a comment will be approved (ie published) if it is not considered spam. If considered spam, the comment will not be approved (ie pending)._
-
-# Dependencies
-* `Microsoft.Extensions.Http`
+## Description
+Piranha CMS provides a feature to allow visitors to comment posts and pages. 
+This module adds automatic spam detection functionality for these comments.
+Once configured, the module will intercept all comments before they are published. 
+If considered spam, the comment is marked as not approved, effectively stopping it from being published.
+If not considered spam, the comment is marked as approved and is published.
+# Dependencies* `Microsoft.Extensions.Http`
 * `Piranha` version 9
+* An Akismet API key
 
-_Note: Piranha version 10 is planned to have hooks redesigned, forcing this module to be redesigned too when version 10 is released. Take this into account if using this module. (See referenced issue under Further reading section)._
+_Note: Piranha version 10 is planned to have hooks redesigned, forcing this module to be redesigned too when version 10 is released. Take this into account if using this module. (See referenced issue under Further reading section)._
+# DemoPlease go ahead and try it out by posting a comment with a greeting on my blog. It runs PiranhaCMS with this module active. If your comment is directly visible it's been classified by akismet as non-spam and approved by the SpamDetector module as a valid comment. If not, stop spamming! (Or report a bug to me ;) )
 
-# Prerequisites
-* A solution or project using PiranhaCMS (see https://piranhacms.org/)
-* An Akismet Developer API key (see https://akismet.com/development/api)
+My PiranhaCMS demo site: [zon3.se](https://zon3.se)
+# InstallationSee Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) file. The file is from the [piranha.razor](https://piranhacms.org/docs/master/basics/project-templates) template with relevant code added.
 
-# Further reading
-* Piranha Modules: 
-	* https://piranhacms.org/docs/extensions/modules
-	* https://github.com/PiranhaCMS/piranha.modules
-* Piranha Hooks: 
-	* https://piranhacms.org/docs/application/hooks
-* Akismet API documentation:
-    * https://akismet.com/development/api/#detailed-docs
-    * https://akismet.com/development/api/#comment-check
-* Related Piranha issues:
-    * Redesign of Hooks: https://github.com/PiranhaCMS/piranha.core/issues/1236
-
-# Demo
-Please go ahead and try it out by posting a comment with a greeting on my blog. It runs PiranhaCMS with this module active. If your comment is directly visible it's been classified by akismet as non-spam and approved by the SpamDetector module as a valid comment. If not, stop spamming! (Or report a bug to me ;) )
-
-My PiranhaCMS demo site: https://zon3.se 
-
-# Usage
-See Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) file. The file is from the [piranha.razor](https://piranhacms.org/docs/master/basics/project-templates) template with relevant code added.
-
-## Instructions
+## Code adjustments in your Piranha project
 1. Get and add the SpamDetector module to your Piranha project, either by source or package:
 	1. Using source code: Downloading the source code and add a project reference to `Zon3.SpamDetector.csproj` _OR_
 	1. Using NuGet package manager: Add the SpamDetector package as a NuGet dependency  
@@ -50,23 +30,29 @@ See Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) fi
     1. Register `SpamDetector` service 
 	1. Register `SpamDetector` middleware
     1. Register a Comment validation hook and call `SpamDetector.ReviewAsync(Comment c)` to get validation result.
-	1. Make sure the hook use the validation to set the comment status (`IsApproved`)
+	1. Make sure the hook use the validation to set the comment status (`IsApproved`)
+# ConfigurationValues that are mandatory are marked with (Required). Without these properly set, the module won't work.
+## API Config
+These settings controls the module:
 
-## Settings
-The module adds a section to the Manager with the settings available:
+* (Required) Enable SpamDetector module : use this to turn the module on or off.
+* (Required) Test mode: use this while setting up and testing the module. This will advice Akismet that comments sent are for testing purposes only. Don't forget to turn off once the module is setup and testing is done.
+* (Required) API URL: the personal, site-specific API key to use to make calls to Akismet (see [akismet.com/development/api](https://akismet.com/development/api)).
 
-* Enabled (default: `true`): If false, module will not send requests and leave comments unreviewed
-* IsTest (default: `true`): If true, all requests are marked 'test'. See Note 1.
-* Spam Api Url: the complete URL to the API to use for spam detection
-* Site Url: the base URL of the site the comments are posted on. See Note 2. 
-* Site Language (default: `"en-US"`): The language of the site the comments are posted on. See Note 2.
-* Site Encoding (default: `"UTF8"`): The encoding of the site the comments are posted on. See Note 2.
-* User Role (default: `"guest"`): The name of the user role comments are posted as. See Note 2.
+## Site Config
+These settings are sent to Akismet along with the comments to help review the content submitted:
 
-_Note 1: The effect of `IsTest` set to `true` is to send API requests without affecting Akismet heuristics. Akismet will, however, do a proper assessment of the comment and return the result. As per documentation there are defined values that can be used to test positive Spam detection (see Akismet documentation). When SpamModule is configured and tested this value should be set to `false`_
-
-_Note 2: These settings reflect the site SpamDetector is used from. They are sent along each comment to Akismet to aid the analysis. While SpamDetector will run without these settings Akismet encourage them to be sent. In the future SpamDetector module might get these values from Piranha automatically._
-
-![image](https://user-images.githubusercontent.com/52660827/110434774-8511c380-80b2-11eb-8d69-71ea4f91533e.png)
-
-The settings are persisted in the Piranha database as `Param` values (same as Piranha use for configuration settings).
+*  (Required) Site URL: The full URL of the frontpage of the blog/site using the SpamDetector module. 
+* Site language: The language(s) used by the site (ie the expected languages of the comments submitted). A comma separated list of  [ISO 639-1 formatted](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) for all languages used by the site.
+* Site encoding: The character encoding for the form values of submitted comments ('Your name', 'your email address', 'An (optional) URL to your website' and 'Your awesome comment').
+* User role: The user role of the user who submitted the comment (if any).
+# Further readingSelected links relevant to this module:* Piranha Modules: 
+	* [piranhacms.org/docs/extensions/modules](https://piranhacms.org/docs/extensions/modules)
+	* [github.com/PiranhaCMS/piranha.modules](https://github.com/PiranhaCMS/piranha.modules)
+* Piranha Hooks: 
+	* [piranhacms.org/docs/application/hooks](https://piranhacms.org/docs/application/hooks)
+* Akismet API documentation:
+    * [akismet.com/development/api/#detailed-docs](https://akismet.com/development/api/#detailed-docs)
+    * [akismet.com/development/api/#comment-check](https://akismet.com/development/api/#comment-check)
+* Related Piranha issues:
+    * Redesign of Hooks: [github.com/PiranhaCMS/piranha.core/issues/1236](https://github.com/PiranhaCMS/piranha.core/issues/1236)
