@@ -1,13 +1,14 @@
 @inject IAuthorizationService Auth
-@inject Zon3.SpamDetector.Services.SpamDetectorMarkdownService Markdown
+@inject SpamDetectorMarkdownService Markdown
+@inject SpamDetectorLocalizer SpamDetectorLocalizer
 
 <div id="spamDetectorInfo" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <!-- Header -->
             <div class="modal-header border-bottom-0">
-                <h5 class="modal-title"><i class="fas fa-info-circle"></i> Spam Detector</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title"><i class="fas fa-info-circle"></i> SpamDetector</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label=@SpamDetectorLocalizer.Info["Close"]>
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -15,13 +16,13 @@
             <!-- Tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a href="#" class="nav-link" :class="{ active: selectedInfo === 'uid-about' }" v-on:click.prevent="selectInfo('uid-about')">About</a>
+                    <a href="#" class="nav-link" :class="{ active: selectedInfo === 'uid-about' }" v-on:click.prevent="selectInfo('uid-about')">@SpamDetectorLocalizer.Info["About"]</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" :class="{ active: selectedInfo === 'uid-configuration' }" v-on:click.prevent="selectInfo('uid-configuration')">Configuration</a>
+                    <a href="#" class="nav-link" :class="{ active: selectedInfo === 'uid-configuration' }" v-on:click.prevent="selectInfo('uid-configuration')">@SpamDetectorLocalizer.Info["Configuration"]</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" :class="{ active: selectedInfo === 'uid-further-reading' }" v-on:click.prevent="selectInfo('uid-further-reading')">Further reading</a>
+                    <a href="#" class="nav-link" :class="{ active: selectedInfo === 'uid-further-reading' }" v-on:click.prevent="selectInfo('uid-further-reading')">@SpamDetectorLocalizer.Info["Further reading"]</a>
                 </li>
             </ul>
 
@@ -32,7 +33,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="card">
-                                    <img class="card-img-top" src="~/manager/assets/img/phiddlelogo.png" alt="Spam Detector Logo" />
+                                    <img class="card-img-top" src="~/manager/assets/img/phiddlelogo.png" alt=@SpamDetectorLocalizer.Info["SpamDetector Logo" ]/>
                                 </div>
                             </div>
                             <div class="col-sm-8">

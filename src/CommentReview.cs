@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Zon3.SpamDetector
+﻿namespace Zon3.SpamDetector
 {
     /// <summary>
     /// The result of a SpamDetection request. 

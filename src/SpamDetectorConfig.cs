@@ -1,7 +1,7 @@
-﻿using System;
-using Piranha;
+﻿using Piranha;
 using Piranha.Models;
 using Piranha.Services;
+using System;
 
 namespace Zon3.SpamDetector
 {

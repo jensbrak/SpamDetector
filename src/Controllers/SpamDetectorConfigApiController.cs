@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Piranha.Manager;
 using Piranha.Manager.Models;
+using Zon3.SpamDetector.Localization;
 using Zon3.SpamDetector.Models;
 using Zon3.SpamDetector.Services;
 
@@ -15,10 +16,12 @@ namespace Zon3.SpamDetector.Controllers
     public class SpamDetectorConfigApiController : Controller
     {
         private readonly SpamDetectorConfigService _configService;
+        private readonly SpamDetectorLocalizer _localizer;
 
-        public SpamDetectorConfigApiController(SpamDetectorConfigService configService)
+        public SpamDetectorConfigApiController(SpamDetectorConfigService configService, SpamDetectorLocalizer localizer)
         {
             _configService = configService;
+            _localizer = localizer;
         }
 
         [Route("list")]
@@ -45,7 +48,7 @@ namespace Zon3.SpamDetector.Controllers
                     Status = new StatusMessage
                     {
                         Type = StatusMessage.Error,
-                        Body = "An error occurred while saving Spam Detector config"
+                        Body = _localizer.Config["An error occurred while saving SpamDetector config"]
                     }
                 };
             }
@@ -54,7 +57,7 @@ namespace Zon3.SpamDetector.Controllers
                 Status = new StatusMessage
                 {
                     Type = StatusMessage.Success,
-                    Body = "Spam Detector config was successfully saved"
+                    Body = _localizer.Config["SpamDetector config was successfully saved"]
                 }
             };
         }

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.FileProviders;
+using Piranha;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Piranha;
 
 namespace Zon3.SpamDetector.Services
 {

@@ -1,7 +1,7 @@
-﻿using System;
-using Piranha;
+﻿using Piranha;
 using Piranha.Extend;
 using Piranha.Manager;
+using System;
 
 namespace Zon3.SpamDetector
 {
@@ -51,7 +51,7 @@ namespace Zon3.SpamDetector
             Menu.Items[settingsIndex].Items.Add(new MenuItem
             {
                 InternalId = "SpamDetector",
-                Name = "Spam Detector",
+                Name = "SpamDetector",
                 Route = "~/manager/spamdetector",
                 Css = "fas fa-comment-slash",
             });

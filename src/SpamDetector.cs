@@ -1,20 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic;
+﻿using Microsoft.Extensions.Logging;
 using Piranha;
 using Piranha.Models;
-using Piranha.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using Zon3.SpamDetector.Models;
 using Zon3.SpamDetector.Services;
 
@@ -68,13 +57,6 @@ namespace Zon3.SpamDetector
             {
                 _logger.LogWarning("Option IsTest is true: no live requests will be made");
             }
-
-            /*
-            App.Hooks.Comments.RegisterOnValidate(c =>
-            {
-                c.IsApproved = ReviewAsync(c).Result.Approved;
-            });
-            */
         }
 
         public async Task<CommentReview> ReviewAsync(Comment comment)

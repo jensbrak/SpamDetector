@@ -1,13 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Piranha;
-using Piranha.Services;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Builder;
 using Piranha.AspNetCore;
 
 namespace Zon3.SpamDetector
@@ -22,8 +15,12 @@ namespace Zon3.SpamDetector
         /// <returns>The updated builder</returns>
         public static PiranhaServiceBuilder UseSpamDetector<T>(this PiranhaServiceBuilder serviceBuilder, ServiceLifetime scope = ServiceLifetime.Scoped)
         {
+            serviceBuilder.Services.AddLocalization(options =>
+                options.ResourcesPath = "Resources"
+            );
             serviceBuilder.Services.AddControllersWithViews();
-            serviceBuilder.Services.AddRazorPages();
+            serviceBuilder.Services.AddRazorPages()
+                .AddSpamDetectorOptions();
             serviceBuilder.Services.AddSpamDetector<T>();
 
             return serviceBuilder;

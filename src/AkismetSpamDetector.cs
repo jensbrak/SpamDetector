@@ -1,14 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Piranha;
 using Piranha.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Zon3.SpamDetector.Models;
 using Zon3.SpamDetector.Services;
 
 namespace Zon3.SpamDetector

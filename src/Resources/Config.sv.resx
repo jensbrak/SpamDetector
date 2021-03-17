@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="An error occurred while saving SpamDetector config" xml:space="preserve">
+    <value>Ett fel uppstod när SpamDetector sparades</value>
+  </data>
+  <data name="API config" xml:space="preserve">
+    <value>Konfiguration API</value>
+  </data>
+  <data name="API URL" xml:space="preserve">
+    <value>API URL</value>
+  </data>
+  <data name="If SpamDetector should be in test mode." xml:space="preserve">
+    <value>Om SpamDetector ska vara i testläge.</value>
+  </data>
+  <data name="If SpamDetector should review comments to detect spam." xml:space="preserve">
+    <value>Om SpamDetector ska analysera kommentarer för att upptäcka spam.</value>
+  </data>
+  <data name="Module enabled" xml:space="preserve">
+    <value>Modulen påslagen</value>
+  </data>
+  <data name="Name of the user role that can submit comments to the site." xml:space="preserve">
+    <value>Namn på användarrollen som kan skicka in kommentarer till hemsidan.</value>
+  </data>
+  <data name="Site config" xml:space="preserve">
+    <value>Konfiguration sajt</value>
+  </data>
+  <data name="Site encoding" xml:space="preserve">
+    <value>Teckenkod sajt</value>
+  </data>
+  <data name="Site languages" xml:space="preserve">
+    <value>Språk sajt</value>
+  </data>
+  <data name="SpamDetector Config" xml:space="preserve">
+    <value>Konfiguration SpamDetector</value>
+  </data>
+  <data name="SpamDetector config was successfully saved" xml:space="preserve">
+    <value>Konfigurationen för SpamDetector sparades</value>
+  </data>
+  <data name="Test mode" xml:space="preserve">
+    <value>Testläge</value>
+  </data>
+  <data name="The encoding of the comment fields sent for review to the API." xml:space="preserve">
+    <value>Teckenkod för kommentarsfält som skickas för analys till API:et.</value>
+  </data>
+  <data name="The full URL to the API to use for spam detection." xml:space="preserve">
+    <value>Fullständig URL till API:et som används för att upptäcka spam.</value>
+  </data>
+  <data name="The full URL to the site sending comments for review to the API." xml:space="preserve">
+    <value>Fullständig URL till sajten som skickar kommentarer för analys till API:et.</value>
+  </data>
+  <data name="The languages (comma separated) of the site and the comments sent for review to the API." xml:space="preserve">
+    <value>Språk som stöds av sajten samt språk som kommentarer skickade för analys till API:et innehåller (kommaseparerade).</value>
+  </data>
+  <data name="User role" xml:space="preserve">
+    <value>Användarroll</value>
+  </data>
+</root>
