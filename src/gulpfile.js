@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass')
-    cssmin = require("gulp-cssmin")
-    rename = require("gulp-rename");
+    sass = require('gulp-sass');
+cssmin = require("gulp-cssmin");
+rename = require("gulp-rename");
 
 gulp.task('min', function (done) {
     gulp.src('assets/scss/style.scss')

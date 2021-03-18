@@ -14,7 +14,7 @@ namespace Zon3.SpamDetector.Services
 
         private readonly IFileProvider _fileProvider;
 
-        private Dictionary<string, string> _transformations;
+        private readonly Dictionary<string, string> _transformations;
 
         public SpamDetectorMarkdownService(IFileProvider fileProvider, string path)
         {
@@ -27,7 +27,7 @@ namespace Zon3.SpamDetector.Services
         {
             var files = _fileProvider.GetDirectoryContents(".").Where(f => f.Name.EndsWith(EXT));
             var names = files.Select(f => Path.GetFileNameWithoutExtension(f.Name));
-            var transformations = names.ToDictionary(n => n, m => Transform(m));
+            var transformations = names.ToDictionary(n => n, Transform);
             return transformations;
         }
 

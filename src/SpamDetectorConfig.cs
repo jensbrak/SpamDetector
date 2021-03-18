@@ -9,14 +9,14 @@ namespace Zon3.SpamDetector
     {
         private readonly IParamService _service;
 
-        public static readonly string MODULE_PREFIX = "SpamDetector_";
-        public static readonly string ENABLED = $"{MODULE_PREFIX}Enabled";
-        public static readonly string IS_TEST = $"{MODULE_PREFIX}IsTest";
-        public static readonly string SPAM_API_URL = $"{MODULE_PREFIX}SpamApiUrl";
-        public static readonly string SITE_URL = $"{MODULE_PREFIX}SiteUrl";
-        public static readonly string SITE_LANGUAGE = $"{MODULE_PREFIX}SiteLanguage";
-        public static readonly string SITE_ENCODING = $"{MODULE_PREFIX}SiteEncoding";
-        public static readonly string USER_ROLE = $"{MODULE_PREFIX}UserRole";
+        public static readonly string KeyPrefix = "SpamDetector_";
+        public static readonly string KeyEnabled = $"{KeyPrefix}Enabled";
+        public static readonly string KeyIsTest = $"{KeyPrefix}IsTest";
+        public static readonly string KeySpamApiUrl = $"{KeyPrefix}SpamApiUrl";
+        public static readonly string KeySiteUrl = $"{KeyPrefix}SiteUrl";
+        public static readonly string KeySiteLanguage = $"{KeyPrefix}SiteLanguage";
+        public static readonly string KeySiteEncoding = $"{KeyPrefix}SiteEncoding";
+        public static readonly string KeyUserRole = $"{KeyPrefix}UserRole";
 
         public SpamDetectorConfig(IParamService paramService)
         {
@@ -32,14 +32,14 @@ namespace Zon3.SpamDetector
         {
             get
             {
-                var param = _service.GetByKeyAsync(ENABLED).GetAwaiter().GetResult();
+                var param = _service.GetByKeyAsync(KeyEnabled).GetAwaiter().GetResult();
                 return param == null || Convert.ToBoolean(param.Value);
             }
             set
             {
-                var param = _service.GetByKeyAsync(ENABLED).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(KeyEnabled).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = ENABLED
+                    Key = KeyEnabled
                 };
 
                 param.Value = value.ToString();
@@ -51,14 +51,14 @@ namespace Zon3.SpamDetector
         {
             get
             {
-                var param = _service.GetByKeyAsync(IS_TEST).GetAwaiter().GetResult();
+                var param = _service.GetByKeyAsync(KeyIsTest).GetAwaiter().GetResult();
                 return param == null || Convert.ToBoolean(param.Value);
             }
             set
             {
-                var param = _service.GetByKeyAsync(IS_TEST).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(KeyIsTest).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = IS_TEST
+                    Key = KeyIsTest
                 };
 
                 param.Value = value.ToString();
@@ -70,14 +70,14 @@ namespace Zon3.SpamDetector
         {
             get
             {
-                var param = _service.GetByKeyAsync(SPAM_API_URL).GetAwaiter().GetResult();
+                var param = _service.GetByKeyAsync(KeySpamApiUrl).GetAwaiter().GetResult();
                 return param?.Value;
             }
             set
             {
-                var param = _service.GetByKeyAsync(SPAM_API_URL).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(KeySpamApiUrl).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = SPAM_API_URL
+                    Key = KeySpamApiUrl
                 };
 
                 param.Value = value;
@@ -89,14 +89,14 @@ namespace Zon3.SpamDetector
         {
             get
             {
-                var param = _service.GetByKeyAsync(SITE_URL).GetAwaiter().GetResult();
+                var param = _service.GetByKeyAsync(KeySiteUrl).GetAwaiter().GetResult();
                 return param?.Value;
             }
             set
             {
-                var param = _service.GetByKeyAsync(SITE_URL).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(KeySiteUrl).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = SITE_URL
+                    Key = KeySiteUrl
                 };
 
                 param.Value = value;
@@ -108,14 +108,14 @@ namespace Zon3.SpamDetector
         {
             get
             {
-                var param = _service.GetByKeyAsync(SITE_LANGUAGE).GetAwaiter().GetResult();
+                var param = _service.GetByKeyAsync(KeySiteLanguage).GetAwaiter().GetResult();
                 return param == null ? "en-US" : param.Value;
             }
             set
             {
-                var param = _service.GetByKeyAsync(SITE_LANGUAGE).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(KeySiteLanguage).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = SITE_LANGUAGE
+                    Key = KeySiteLanguage
                 };
 
                 param.Value = value;
@@ -127,14 +127,14 @@ namespace Zon3.SpamDetector
         {
             get
             {
-                var param = _service.GetByKeyAsync(SITE_ENCODING).GetAwaiter().GetResult();
+                var param = _service.GetByKeyAsync(KeySiteEncoding).GetAwaiter().GetResult();
                 return param == null ? "UTF8" : param.Value;
             }
             set
             {
-                var param = _service.GetByKeyAsync(SITE_ENCODING).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(KeySiteEncoding).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = SITE_ENCODING
+                    Key = KeySiteEncoding
                 };
 
                 param.Value = value;
@@ -146,14 +146,14 @@ namespace Zon3.SpamDetector
         {
             get
             {
-                var param = _service.GetByKeyAsync(USER_ROLE).GetAwaiter().GetResult();
+                var param = _service.GetByKeyAsync(KeyUserRole).GetAwaiter().GetResult();
                 return param == null ? "guest" : param.Value;
             }
             set
             {
-                var param = _service.GetByKeyAsync(USER_ROLE).GetAwaiter().GetResult() ?? new Param
+                var param = _service.GetByKeyAsync(KeyUserRole).GetAwaiter().GetResult() ?? new Param
                 {
-                    Key = USER_ROLE
+                    Key = KeyUserRole
                 };
 
                 param.Value = value;

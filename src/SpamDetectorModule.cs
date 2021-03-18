@@ -6,27 +6,27 @@ using System;
 namespace Zon3.SpamDetector
 {
     /// <summary>
-    /// Comment Moderator Module.
+    /// Piranha Module definition for SpamDetector.
     /// </summary>
     public class SpamDetectorModule : IModule
     {
         /// <summary>
-        /// Gets the Author
+        /// Gets the Author.
         /// </summary>
         public string Author => "Jens Bråkenhielm";
 
         /// <summary>
-        /// Gets the Name
+        /// Gets the Name.
         /// </summary>
         public string Name => "Zon3.SpamDetector";
 
         /// <summary>
-        /// Gets the Version
+        /// Gets the version.
         /// </summary>
         public string Version => Utils.GetAssemblyVersion(GetType().Assembly);
 
         /// <summary>
-        /// Gets the description
+        /// Gets the description.
         /// </summary>
         public string Description => "Piranha Module detecting comment spam using Akismet";
 

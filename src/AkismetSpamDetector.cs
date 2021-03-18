@@ -3,6 +3,7 @@ using Piranha;
 using Piranha.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,23 +13,30 @@ namespace Zon3.SpamDetector
 {
     public class AkismetSpamDetector : SpamDetector
     {
-        public AkismetSpamDetector(IApi piranhaApi, SpamDetectorConfigService configService, IHttpClientFactory clientFactory, ILoggerFactory logger) : base(piranhaApi, configService, clientFactory, logger)
+        /// <inheritdoc cref="SpamDetector" select="param"/>
+        /// <summary>
+        /// The Akismet anti-spam service implementation of the <see cref="SpamDetector"/> core functionality.
+        /// Composes a request to Akismet with as much relevant information as possible provided and
+        /// translates a response from Akismet to a review result in form of a <see cref="CommentReview"/>.
+        /// </summary>
+        public AkismetSpamDetector(IApi piranha, SpamDetectorConfigService config, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(piranha, config, httpClientFactory, loggerFactory)
         {
             // Intentionally left empty
         }
         
+        /// <inheritdoc cref="SpamDetector"/>
         protected override async Task<HttpRequestMessage> GetSpamRequestMessageAsync(Comment comment)
         {
-            _commentId = comment.Id;
+            CommentId = comment.Id;
 
-            var post = await _piranha.Posts.GetByIdAsync(comment.ContentId);
-            var page = await _piranha.Pages.GetByIdAsync(post != null ? post.BlogId : comment.ContentId);
+            var post = await Piranha.Posts.GetByIdAsync(comment.ContentId);
+            var page = await Piranha.Pages.GetByIdAsync(post?.BlogId ?? comment.ContentId);
             var permalink = post != null ? post.Permalink : page.Permalink;
-            var permalinkFull = $"{_configEditModel.SiteUrl}{permalink}";
+            var permalinkFull = $"{ConfigModel.SiteUrl}{permalink}";
 
             var parameters = new Dictionary<string, string>
                 {
-                    {"blog", HttpUtility.UrlEncode(_configEditModel.SiteUrl)},
+                    {"blog", HttpUtility.UrlEncode(ConfigModel.SiteUrl)},
                     {"user_ip", HttpUtility.UrlEncode(comment.IpAddress)},
                     {"user_agent", HttpUtility.UrlEncode(comment.UserAgent)},
                     {"referrer", HttpUtility.UrlEncode(string.Empty)}, // ???
@@ -38,33 +46,26 @@ namespace Zon3.SpamDetector
                     {"comment_author_email", HttpUtility.UrlEncode(comment.Email ?? string.Empty)},
                     {"comment_author_url", HttpUtility.UrlEncode(comment.Url ?? string.Empty)},
                     {"comment_content", HttpUtility.UrlEncode(comment.Body ?? string.Empty)},
-                    {"comment_date_gmt", HttpUtility.UrlEncode(comment.Created.ToString())},
-                    {"comment_post_modified_gmt", HttpUtility.UrlEncode(comment.Created.ToString())},
-                    {"blog_lang", HttpUtility.UrlEncode(_configEditModel.SiteLanguage)},
-                    {"blog_charset", HttpUtility.UrlEncode(_configEditModel.SiteEncoding)},
-                    {"user_role", HttpUtility.UrlEncode(_configEditModel.UserRole)},
-                    {"is_test", HttpUtility.UrlEncode(_configEditModel.IsTest.ToString())}
+                    {"comment_date_gmt", HttpUtility.UrlEncode(comment.Created.ToUniversalTime().ToString("R"))}, // RFC1123
+                    {"comment_post_modified_gmt", HttpUtility.UrlEncode(comment.Created.ToString(CultureInfo.InvariantCulture))},
+                    {"blog_lang", HttpUtility.UrlEncode(ConfigModel.SiteLanguage)},
+                    {"blog_charset", HttpUtility.UrlEncode(ConfigModel.SiteEncoding)},
+                    {"user_role", HttpUtility.UrlEncode(ConfigModel.UserRole)},
+                    {"is_test", HttpUtility.UrlEncode(ConfigModel.IsTest.ToString())}
                 };
 
-            _logger.LogDebug(
-                "Sending Spam API request for comment '{1}' from IP '{2}'...",
-                _commentId,
-                comment.IpAddress);
-
-            return new HttpRequestMessage(HttpMethod.Post, _configEditModel.SpamApiUrl)
+            return new HttpRequestMessage(HttpMethod.Post, ConfigModel.SpamApiUrl)
             {
                 Content = new FormUrlEncodedContent(parameters)
             };
         }
 
+        /// <inheritdoc cref="SpamDetector"/>
         protected override async Task<CommentReview> GetCommentReviewFromResponse(HttpResponseMessage response)
         {
             var answer = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
 
-            _logger.LogDebug(
-                "Received Spam API response for comment '{1}' = \"{2}\"",
-                _commentId,
-                answer);
+            Logger.LogDebug("Received Spam API response for comment '{1}' = \"{2}\"", CommentId, answer);
 
             return new CommentReview()
             {

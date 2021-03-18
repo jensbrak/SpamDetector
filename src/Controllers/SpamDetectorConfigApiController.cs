@@ -9,37 +9,54 @@ using Zon3.SpamDetector.Services;
 
 namespace Zon3.SpamDetector.Controllers
 {
+    /// <summary>
+    /// API controller for the SpamDetector config management.
+    /// </summary>
     [Area("Manager")]
     [Route("manager/api/spamdetector")]
     [Authorize(Policy = Permission.Admin)]
     [ApiController]
     public class SpamDetectorConfigApiController : Controller
     {
-        private readonly SpamDetectorConfigService _configService;
+        private readonly SpamDetectorConfigService _config;
         private readonly SpamDetectorLocalizer _localizer;
 
-        public SpamDetectorConfigApiController(SpamDetectorConfigService configService, SpamDetectorLocalizer localizer)
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="config">Config service</param>
+        /// <param name="localizer">Localization service</param>
+        public SpamDetectorConfigApiController(SpamDetectorConfigService config, SpamDetectorLocalizer localizer)
         {
-            _configService = configService;
+            _config = config;
             _localizer = localizer;
         }
 
+        /// <summary>
+        /// Gets the list model.
+        /// </summary>
+        /// <returns>The list model</returns>
         [Route("list")]
         [HttpGet]
         [Authorize(Policy = Permission.Config)]
-        public SpamDetectorConfigEditModel List()
+        public SpamDetectorConfigModel List()
         {
-            return _configService.Get();
+            return _config.Get();
         }
 
+        /// <summary>
+        /// Save the given model.
+        /// </summary>
+        /// <param name="configModel">The config model</param>
+        /// <returns>The result of the save operation</returns>
         [Route("save")]
         [HttpPost]
         [Authorize(Policy = Permission.ConfigEdit)]
-        public AsyncResult Save(SpamDetectorConfigEditModel configEditModel)
+        public AsyncResult Save(SpamDetectorConfigModel configModel)
         {
             try
             {
-                _configService.Save(configEditModel);
+                _config.Save(configModel);
             }
             catch
             {

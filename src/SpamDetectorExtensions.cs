@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Piranha;
@@ -10,37 +9,50 @@ using Zon3.SpamDetector.Services;
 
 namespace Zon3.SpamDetector
 {
+    /// <summary>
+    /// Service extensions.
+    /// </summary>
     public static class SpamDetectorExtensions
     {
         /// <summary>
-        /// Adds the services for the SpamDetector service.
+        /// Adds the SpamDetector module.
         /// </summary>
         /// <param name="services">The current service collection</param>
         /// <param name="scope">The optional service scope. Default is singleton</param>
-        /// <returns>The service collection</returns>
+        /// <returns>The services</returns>
         public static IServiceCollection AddSpamDetector<T>(this IServiceCollection services, ServiceLifetime scope = ServiceLifetime.Scoped)
         {
+            // Register the module to Piranha
             App.Modules.Register<SpamDetectorModule>();
 
+            // Add external module services, if needed
             if (services.All(s => s.ServiceType != typeof(IHttpClientFactory)))
             {
                 services.AddHttpClient();
             }
 
             // Add module dependency service instances
-            services.AddSingleton(s => new EmbeddedFileProvider(typeof(SpamDetectorModule).Assembly, "Zon3.SpamDetector.assets.dist"));
+            services.AddSingleton(_ => new EmbeddedFileProvider(typeof(SpamDetectorModule).Assembly, "Zon3.SpamDetector.assets.dist"));
             services.AddSingleton(s => new SpamDetectorMarkdownService(s.GetRequiredService<EmbeddedFileProvider>(), "doc"));
 
             // Add the Manager config service and the module service
             services.AddScoped<SpamDetectorLocalizer>();
             services.AddScoped<SpamDetectorConfigService>();
+
+            // Finally add the module itself as a service
             services.Add(new ServiceDescriptor(typeof(ISpamDetector), typeof(T), scope));
 
             return services;
         }
 
-        public static IApplicationBuilder UseSpamDetector<T>(this IApplicationBuilder builder)
+        /// <summary>
+        /// Uses the SpamDetector module.
+        /// </summary>
+        /// <param name="builder">The application builder</param>
+        /// <returns>The builder</returns>
+        public static IApplicationBuilder UseSpamDetector(this IApplicationBuilder builder)
         {
+            // Define a file provider for static files 
             return builder.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = builder.ApplicationServices.GetRequiredService<EmbeddedFileProvider>(),
@@ -48,11 +60,11 @@ namespace Zon3.SpamDetector
             });
         }
 
-        public static void MapSpamDetector(this IEndpointRouteBuilder builder)
-        {
-            builder.MapRazorPages();
-        }
-
+        /// <summary>
+        /// Adds the SpamDetector options.
+        /// </summary>
+        /// <param name="builder">The MVC builder</param>
+        /// <returns>The builder</returns>
         public static IMvcBuilder AddSpamDetectorOptions(this IMvcBuilder builder)
         {
             return builder
