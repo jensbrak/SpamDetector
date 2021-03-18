@@ -2,8 +2,8 @@
 from pathlib import Path
 
 readme = Path('..', 'README.md')
-outdir = Path('..', 'src', 'assets', 'dist', 'doc')
-wanted = ['about', 'configuration', 'further reading']
+outdir = Path('..', 'Zon3.SpamDetector', 'assets', 'dist', 'doc')
+wanted = ['about', 'settings', 'issues and feedback', 'further reading']
 divide = '# '
 inchdr = False
 incnum = False

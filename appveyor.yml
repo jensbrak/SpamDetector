@@ -1,4 +1,4 @@
-version: '1.0.0.{build}'
+version: '1.2.0.{build}'
 
 max_jobs: 1
 
@@ -10,7 +10,7 @@ init:
 clone_depth: 1
 
 environment:
-  use_version: 1.2.0-rc1
+  use_version: 1.2.0-rc2
 
 install:
   - nuget help | head -1

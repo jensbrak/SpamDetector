@@ -46,7 +46,7 @@ namespace RazorWeb
                     db.UseSqlite(_config.GetConnectionString("piranha")));
                 options.UseIdentityWithSeed<IdentitySQLiteDb>(db =>
                     db.UseSqlite(_config.GetConnectionString("piranha")));
-                options.UseSpamDetector<AkismetSpamDetector>();  // <-- 2. SpamDetector service using Akismet registered 
+                options.UseSpamDetector();  // <-- 2. SpamDetector service registered 
 
                 /***
                  * Here you can configure the different permissions
@@ -85,7 +85,7 @@ namespace RazorWeb
                 options.UseManager();
                 options.UseTinyMCE();
                 options.UseIdentity();
-		options.UseSpamDetector<AkismetSpamDetector>(); // <-- 3. SpamDetector service using Akismet configured 
+			options.UseSpamDetector(); // <-- 3. SpamDetector service configured 
             });
 			
             // 4. Add hook. SpamDetector use OnValidate hook to moderate comments
