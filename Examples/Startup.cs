@@ -85,14 +85,14 @@ namespace RazorWeb
                 options.UseManager();
                 options.UseTinyMCE();
                 options.UseIdentity();
-			options.UseSpamDetector(); // <-- 3. SpamDetector service configured 
+		options.UseSpamDetector(); // <-- 3. SpamDetector service configured 
             });
 			
             // 4. Add hook. SpamDetector use OnValidate hook to moderate comments
             App.Hooks.Comments.RegisterOnValidate(c =>
             {
                 using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-                var spamDetector = serviceScope.ServiceProvider.GetRequiredService<SpamDetector>();
+                var spamDetector = serviceScope.ServiceProvider.GetRequiredService<AkismetSpamDetectorService>();
 				
                 // SpamDetector will call Akismet API to review the comment and then return the result
                 var reviewResult = spamDetector.ReviewAsync(c).Result;
