@@ -63,14 +63,24 @@ namespace Zon3.SpamDetector
         /// <inheritdoc cref="SpamDetectorService"/>
         protected override async Task<CommentReview> GetCommentReviewFromResponse(HttpResponseMessage response)
         {
-            var answer = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+            var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+            
+            // If answer is neither true or false, the response is unexpected and something's wrong. 
+            // It may be a bad URL for the API call, either way, report it
+            var answerIsFalse = responseText.Equals("false", StringComparison.OrdinalIgnoreCase);
+            var answerIsTrue = responseText.Equals("true", StringComparison.OrdinalIgnoreCase);
 
-            Logger.LogDebug("Received Spam API response for comment '{1}' = \"{2}\"", CommentId, answer);
+            if (!answerIsFalse && !answerIsTrue)
+            {
+                Logger.LogError($"Got unexpected Spam API response: {responseText}");
+                return null;
+            }
 
             return new CommentReview()
             {
-                // Akismet returns 'true' if it's spam, 'false' otherwise, so the comment is approved if it's NOT spam
-                Approved = answer.Equals("false", StringComparison.OrdinalIgnoreCase),
+                // Akismet returns 'true' if it's spam, 'false' otherwise.
+                // Comment approved if Akismet returns false. in other words.
+                Approved = answerIsFalse,
                 Information = response.Headers.ToString()
             };
         }

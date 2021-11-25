@@ -34,7 +34,7 @@ namespace Zon3.SpamDetector
             services.AddSingleton(_ => new EmbeddedFileProvider(typeof(SpamDetectorModule).Assembly, "Zon3.SpamDetector.assets.dist"));
             services.AddSingleton(s => new SpamDetectorMarkdownService(s.GetRequiredService<EmbeddedFileProvider>(), "doc"));
 
-            // Add the Manager config service and the module service
+            // Add the internal services
             services.AddScoped<SpamDetectorLocalizer>();
             services.AddScoped<SpamDetectorConfigService>();
 

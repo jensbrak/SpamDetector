@@ -33,7 +33,7 @@ namespace Zon3.SpamDetector
         /// <summary>
         /// Gets the package url.
         /// </summary>
-        public string PackageUrl => "https://www.nuget.org/packages/Zon3.SpamDetectorService";
+        public string PackageUrl => "https://www.nuget.org/packages/Zon3.SpamDetector";
 
         /// <summary>
         /// Gets the icon url.

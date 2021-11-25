@@ -92,7 +92,7 @@ namespace RazorWeb
             App.Hooks.Comments.RegisterOnValidate(c =>
             {
                 using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
-                var spamDetector = serviceScope.ServiceProvider.GetRequiredService<SpamDetector>();
+                var spamDetector = serviceScope.ServiceProvider.GetRequiredService<SpamDetectorService>();
 				
                 // SpamDetector will call Akismet API to review the comment and then return the result
                 var reviewResult = spamDetector.ReviewAsync(c).Result;

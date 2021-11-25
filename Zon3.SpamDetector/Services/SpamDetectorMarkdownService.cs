@@ -50,7 +50,7 @@ namespace Zon3.SpamDetector.Services
             }
 
             // Store and return
-            return  Transform(markdown);
+            return Transform(markdown);
         }
     }
 }
