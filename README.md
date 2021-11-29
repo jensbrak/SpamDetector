@@ -3,7 +3,7 @@
 | ------ | ------ |
 | GitHub Actions | [![.NET Linux](https://github.com/jensbrak/SpamDetector/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jensbrak/SpamDetector/actions/workflows/dotnet.yml) |
 | GitHub Actions | [![.NET Win](https://github.com/jensbrak/SpamDetector/actions/workflows/dotnet-win.yml/badge.svg)](https://github.com/jensbrak/SpamDetector/actions/workflows/dotnet-win.yml) |
-| NuGet | [![Nuget](https://img.shields.io/nuget/v/Zon3.SpamDetector)](https://www.nuget.org/packages/Zon3.SpamDetector) |
+| NuGet | [![.github/workflows/nuget.yml](https://github.com/jensbrak/SpamDetector/actions/workflows/nuget.yml/badge.svg)](https://github.com/jensbrak/SpamDetector/actions/workflows/nuget.yml) |
 
 # Description
 A Piranha CMS module providing spam detection for page and post comments.
