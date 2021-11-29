@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Prepare
-cd ..
-
 # Build release version
 dotnet restore
 dotnet clean
