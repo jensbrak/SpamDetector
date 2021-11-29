@@ -23,7 +23,9 @@ jobs:
 
     # Build and pack
     - name: Build solution and generate NuGet package
-      run: ./pack.sh
+      run: |
+        chmod +x ./pack.sh
+        ./pack.sh
 
     # Push to NuGet
     - name: Push generated package to GitHub registry
