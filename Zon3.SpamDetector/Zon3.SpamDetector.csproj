@@ -6,16 +6,14 @@
 	
 	<AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <VersionPrefix>1.3.2</VersionPrefix>
-	<VersionSuffix>beta</VersionSuffix>
+    <VersionPrefix>1.3.3</VersionPrefix>
 	
 	<Authors>Jens Bråkenhielm</Authors>
     <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
     <Description>Piranha Module detecting comment spam using Akismet</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>aspnetcore netstandard</PackageTags>
-    <PackageReleaseNotes>Updated to net6.0, added localization support</PackageReleaseNotes>
+    <PackageTags>razorpages aspnetcore netstandard</PackageTags>
     <PackageProjectUrl>https://zon3.se/spamdetector</PackageProjectUrl>
     <PackageIcon>PhiddleLogo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
