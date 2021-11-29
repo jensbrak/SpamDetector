@@ -1,7 +1,7 @@
 # SpamDetector
 | Server | Status |
 | ------ | ------ |
-| GitHub Actions | [![Build status](https://github.com/jensbrak/SpamDetector/actions/workflows/dotnet.yml/badge.svg)] |
+| GitHub Actions | [![.NET Win](https://github.com/jensbrak/SpamDetector/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jensbrak/SpamDetector/actions/workflows/dotnet.yml) |
 | NuGet | [![Nuget](https://img.shields.io/nuget/v/Zon3.SpamDetector)](https://www.nuget.org/packages/Zon3.SpamDetector) |
 
 # Description
