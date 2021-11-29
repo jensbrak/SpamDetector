@@ -4,11 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	
-	<AssemblyName>Zon3.SpamDetector</AssemblyName>
+	  <AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
     <VersionPrefix>1.3.3</VersionPrefix>
 	
-	<Authors>Jens Bråkenhielm</Authors>
+	  <Authors>Jens Bråkenhielm</Authors>
     <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
     <Description>Piranha Module detecting comment spam using Akismet</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

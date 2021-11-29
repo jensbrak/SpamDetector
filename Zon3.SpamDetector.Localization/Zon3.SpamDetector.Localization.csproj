@@ -3,16 +3,20 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <NoWarn>$(NoWarn);1591</NoWarn>
-    <Description>Localization for the SpamDetector manager panel</Description>
-	<VersionPrefix>1.3.2</VersionPrefix>
-    <VersionSuffix>beta</VersionSuffix>
-	<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-	<Authors>Jens Bråkenhielm</Authors>
-	<Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
-  </PropertyGroup>
 
-  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <VersionPrefix>1.3.3</VersionPrefix>
+	
+	  <Authors>Jens Bråkenhielm</Authors>
+    <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
+    <Description>Localization for the SpamDetector manager panel</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>razorpages aspnetcore netstandard</PackageTags>
+    <PackageProjectUrl>https://zon3.se/spamdetector</PackageProjectUrl>
+    <PackageIcon>PhiddleLogo.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/jensbrak/zon3.SpamDetector</RepositoryUrl>
+    <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
 
   <ItemGroup>
