@@ -1,7 +1,7 @@
 # SpamDetector
 | Server | Status |
 | ------ | ------ |
-| AppVeyor | [![Build status](https://ci.appveyor.com/api/projects/status/x55tk8vtffvt354b?svg=true)](https://ci.appveyor.com/project/jensbrak/spamdetector) |
+| GitHub Actions | [![Build status](https://github.com/jensbrak/SpamDetector/actions/workflows/ci.yml/badge.svg) |
 | NuGet | [![Nuget](https://img.shields.io/nuget/v/Zon3.SpamDetector)](https://www.nuget.org/packages/Zon3.SpamDetector) |
 
 # Description
