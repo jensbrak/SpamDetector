@@ -20,6 +20,12 @@ Once configured, the module will intercept all comments before they are publishe
 If considered spam, the comment is marked as not approved, effectively stopping it from being published.
 If not considered spam, the comment is marked as approved and is published.
 
+# Note
+While providing working antispam functionality, the purpose of this module was primarly to explore and learn about Piranha.
+The documentation and samples are helpful when writing a module but without one exception: Manager support.
+I wanted to see what it took to make a module with full Manager support, including persistance, localization while keeping the look and feel of the internal Piranha modules. 
+In other words: You might have use for this module if you want to understand how Manager support can be added to a custom Piranha module.
+
 # Dependencies
 * `Zon3.SpamDetector.Localization`
 * `Microsoft.Extensions.Http` version 6
