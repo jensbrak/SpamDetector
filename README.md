@@ -22,9 +22,9 @@ If not considered spam, the comment is marked as approved and is published.
 
 # Note
 While providing working antispam functionality, the purpose of this module was primarly to explore and learn about Piranha.
-The documentation and samples are helpful when writing a module but without one exception: Manager support.
-I wanted to see what it took to make a module with full Manager support, including persistance, localization while keeping the look and feel of the internal Piranha modules. 
-In other words: You might have use for this module if you want to understand how Manager support can be added to a custom Piranha module.
+The documentation and samples are helpful when writing a module with one exception: Manager support.
+I wanted to see what it took to make a module with full Manager support, including persistance, localization (while keeping the look and feel of the internal Piranha modules). 
+In other words: You might have use for this module even if antispam/comments are not of interest - if you just want to understand how Manager support can be added to a custom Piranha module. There's no claim that this is the right way to do it, however.
 
 # Dependencies
 * `Zon3.SpamDetector.Localization`
