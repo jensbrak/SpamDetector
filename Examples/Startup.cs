@@ -1,3 +1,5 @@
+// NOTE: This example use template code prior Piranha version 10.0.3 (old .NET startup / hosting model)
+// For template code Piranha version 10.0.3 and up (.NET 6 compact startup / minimal hosting model):  see the other example: Program.cs
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
