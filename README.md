@@ -20,7 +20,14 @@ Once configured, the module will intercept all comments before they are publishe
 If considered spam, the comment is marked as not approved, effectively stopping it from being published.
 If not considered spam, the comment is marked as approved and is published.
 
+# Note
+While providing working antispam functionality, the purpose of this module was primarly to explore and learn about Piranha.
+The documentation and samples are helpful when writing a module with one exception: Manager support.
+I wanted to see what it took to make a module with full Manager support, including persistance, localization (while keeping the look and feel of the internal Piranha modules). 
+In other words: You might have use for this module even if antispam/comments are not of interest - if you just want to understand how Manager support can be added to a custom Piranha module. There's no claim that this is the right way to do it, however.
+
 # Dependencies
+* `Zon3.SpamDetector.Localization`
 * `Microsoft.Extensions.Http` version 6
 * `Microsoft.Extensions.Localization` version 6
 * `Piranha` version 10
@@ -33,14 +40,14 @@ Please go ahead and try it out by posting a comment with a greeting on my blog. 
 My PiranhaCMS demo site: [zon3.se](https://zon3.se)
 
 # Installation
-See Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) file. The file is from the [piranha.razor](https://piranhacms.org/docs/master/basics/project-templates) template with relevant code added.
+See Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) (for Piranha prior version 10.0.3) or [`Program.cs`](Examples/Program.cs) (for Piranha version 10.0.3 and up). The files are from the [piranha.razor](https://piranhacms.org/docs/master/basics/project-templates) template with relevant code added.
 
 ## Code adjustments in your Piranha project
 1. Get and add the SpamDetector module to your Piranha project, either by source or package:
-	1. Using source code: Downloading the source code and add a project reference to `Zon3.SpamDetector.csproj` _OR_
-	1. Using NuGet package manager: Add the SpamDetector package as a NuGet dependency  
-1. Add a reference to `Zon3.SpamDetector` in your Piranha project startup file
-1. In `Startup.cs` add code to register SpamDetector service and middleware and attach it to the proper hook: 
+	1. Using source code: Downloading the source code and add a project reference to `Zon3.SpamDetector.csproj` + `Zon3.SpamDetector.localization.csproj` _OR_
+	1. Using NuGet package manager: Add the SpamDetector and SpamDetector.Localization packages as a NuGet dependencies 
+1. Add a reference to `Zon3.SpamDetector` in your Piranha project startup file (Program.cs for Piranha version 10.0.3 and up, Startup.cs otherwise)
+1. In startup file add code to register SpamDetector service and middleware and attach it to the proper hook: 
     1. Register `SpamDetector` service 
 	1. Register `SpamDetector` middleware
     1. Register a Comment validation hook and call `SpamDetector.ReviewAsync(Comment c)` to get validation result.
