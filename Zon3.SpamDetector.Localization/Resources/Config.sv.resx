@@ -136,7 +136,7 @@
     <value>Språk</value>
   </data>
   <data name="Module enabled" xml:space="preserve">
-    <value>Modul påslagen</value>
+    <value>Modul aktiverad</value>
   </data>
   <data name="Module settings" xml:space="preserve">
     <value>Modulspecifika inställningar</value>
@@ -154,7 +154,7 @@
     <value>Inställningarna för SpamDetector sparades</value>
   </data>
   <data name="Test mode enabled" xml:space="preserve">
-    <value>Testläge påslaget</value>
+    <value>Testläge aktiverat</value>
   </data>
   <data name="The encoding of the comment fields sent for review." xml:space="preserve">
     <value>Teckenkod för kommentarsfält som skickas för bedömning.</value>

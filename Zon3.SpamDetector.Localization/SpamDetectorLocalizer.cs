@@ -1,20 +1,20 @@
 ﻿using Microsoft.Extensions.Localization;
 
-namespace Zon3.SpamDetector.Localization
+namespace Zon3.SpamDetector
 {
     /// <summary>
     /// Localization of SpamDetector.
     /// </summary>
-    public class SpamDetectorLocalizer 
+    public class SpamDetectorLocalizer
     {
         /// <summary>
         /// Gets the config related localizer.
         /// </summary>
-        public IStringLocalizer<Config> Config { get; }
+        public IStringLocalizer<Localization.Config> Config { get; private set; }
         /// <summary>
         /// Gets the info related localizer.
         /// </summary>
-        public IStringLocalizer<Info> Info { get; }
+        public IStringLocalizer<Localization.Info> Info { get; private set; }
 
         /// <summary>
         /// Default constructor.
@@ -22,8 +22,8 @@ namespace Zon3.SpamDetector.Localization
         /// <param name="config">Config localizer</param>
         /// <param name="info">Info localizer</param>
         public SpamDetectorLocalizer(
-            IStringLocalizer<Config> config, 
-            IStringLocalizer<Info> info)
+            IStringLocalizer<Localization.Config> config,
+            IStringLocalizer<Localization.Info> info)
         {
             Config = config;
             Info = info;

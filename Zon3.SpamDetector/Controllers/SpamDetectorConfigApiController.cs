@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Piranha.Manager;
 using Piranha.Manager.Models;
-using Zon3.SpamDetector.Localization;
 using Zon3.SpamDetector.Models;
 using Zon3.SpamDetector.Services;
 

@@ -4,12 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	
-	  <AssemblyName>Zon3.SpamDetector</AssemblyName>
+	<AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <VersionPrefix>1.3.3</VersionPrefix>
+    <VersionPrefix>1.4.0</VersionPrefix>
 	
-	  <Authors>Jens Bråkenhielm</Authors>
-    <Copyright>Copyright 2020-2021 (c) Jens Bråkenhielm</Copyright>
+	<Authors>Jens Bråkenhielm</Authors>
+    <Copyright>Copyright 2020-2022 (c) Jens Bråkenhielm</Copyright>
     <Description>Piranha Module detecting comment spam using Akismet</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -19,6 +19,8 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/jensbrak/zon3.SpamDetector</RepositoryUrl>
     <Version>$(VersionPrefix)</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,13 +29,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.0" />
-    <PackageReference Include="Piranha" Version="10.0.0" />
-    <PackageReference Include="Piranha.Manager" Version="10.0.0" />
-	<ProjectReference Include="..\Zon3.SpamDetector.Localization\Zon3.SpamDetector.Localization.csproj">
-		<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-		<IncludeAssets>Zon3.SpamDetector.Localization.dll</IncludeAssets>
-	</ProjectReference>
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.4" />
+    <PackageReference Include="Piranha" Version="10.1.0" />
+    <PackageReference Include="Piranha.Manager" Version="10.1.0" />
 
   </ItemGroup>
   
@@ -42,9 +40,17 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\Resources\PhiddleLogo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Zon3.SpamDetector.Localization\Zon3.SpamDetector.Localization.csproj" />
   </ItemGroup>
 </Project>

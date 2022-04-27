@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zon3.SpamDetector.Localization", "Zon3.SpamDetector.Localization\Zon3.SpamDetector.Localization.csproj", "{50423898-8EBB-49EA-BBDF-A415047BDD76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zon3.SpamDetector.Localization", "Zon3.SpamDetector.Localization\Zon3.SpamDetector.Localization.csproj", "{50423898-8EBB-49EA-BBDF-A415047BDD76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zon3.SpamDetector", "Zon3.SpamDetector\Zon3.SpamDetector.csproj", "{0EC04D86-69C5-49E1-ACA0-AEF54C76382D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zon3.SpamDetector", "Zon3.SpamDetector\Zon3.SpamDetector.csproj", "{0EC04D86-69C5-49E1-ACA0-AEF54C76382D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{50423898-8EBB-49EA-BBDF-A415047BDD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +41,23 @@ Global
 		{0EC04D86-69C5-49E1-ACA0-AEF54C76382D}.Release|x64.Build.0 = Release|Any CPU
 		{0EC04D86-69C5-49E1-ACA0-AEF54C76382D}.Release|x86.ActiveCfg = Release|Any CPU
 		{0EC04D86-69C5-49E1-ACA0-AEF54C76382D}.Release|x86.Build.0 = Release|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Debug|x64.Build.0 = Debug|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Debug|x86.Build.0 = Debug|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Release|x64.ActiveCfg = Release|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Release|x64.Build.0 = Release|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Release|x86.ActiveCfg = Release|Any CPU
+		{FBA072AC-4A42-4E65-8352-BC00F4772BCD}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40A267E4-F7DA-41BD-8415-3EFAC48685AF}
 	EndGlobalSection
 EndGlobal
