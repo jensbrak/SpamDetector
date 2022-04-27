@@ -11,6 +11,7 @@ A Piranha CMS module providing spam detection for page and post comments.
 # About
 Project page: [zon3.se/spamdetector](https://zon3.se/spamdetector)<br>
 Source code: [github.com/jensbrak/SpamDetector](https://github.com/jensbrak/SpamDetector)<br>
+NuGet package: [nuget.org/packages/Zon3.SpamDetector/](https://www.nuget.org/packages/Zon3.SpamDetector/)<br>
 <br>
 Piranha CMS provides a feature to allow visitors to comment posts and pages. 
 Out of the box, there is no mechanism to prevent spamming the site with unsolicited comments.
