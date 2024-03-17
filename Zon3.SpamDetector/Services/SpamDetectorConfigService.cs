@@ -8,15 +8,15 @@ namespace Zon3.SpamDetector.Services
     /// </summary>
     public class SpamDetectorConfigService
     {
-        private readonly IApi _piranha;
+        private readonly IApi _api;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// <param name="piranha">The Piranha API</param>
-        public SpamDetectorConfigService(IApi piranha)
+        /// <param name="api">The Piranha API</param>
+        public SpamDetectorConfigService(IApi api)
         {
-            _piranha = piranha;
+            _api = api;
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Zon3.SpamDetector.Services
         /// <returns>The SpamDetectorService model</returns>
         public SpamDetectorConfigModel Get()
         {
-            using var config = new SpamDetectorConfig(_piranha);
+            using var config = new SpamDetectorConfig(_api);
             return new SpamDetectorConfigModel
             {
                 Enabled = config.Enabled,
@@ -44,7 +44,7 @@ namespace Zon3.SpamDetector.Services
         /// <param name="configModel">The SpamDetectorService model</param>
         public void Save(SpamDetectorConfigModel configModel)
         {
-            using var config = new SpamDetectorConfig(_piranha)
+            using var config = new SpamDetectorConfig(_api)
             {
                 Enabled = configModel.Enabled,
                 IsTest = configModel.IsTest,

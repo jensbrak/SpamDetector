@@ -28,11 +28,12 @@ I wanted to see what it took to make a module with full Manager support, includi
 In other words: You might have use for this module even if antispam/comments are not of interest - if you just want to understand how Manager support can be added to a custom Piranha module. There's no claim that this is the right way to do it, however.
 
 # Dependencies
+* `.NET 8`
 * `Zon3.SpamDetector.Localization`
-* `Microsoft.Extensions.Http` version 6
-* `Microsoft.Extensions.Localization` version 6
-* `Piranha` version 10
-* `Piranha.Manager` version 10
+* `Microsoft.Extensions.Http` version 8
+* `Microsoft.Extensions.Localization` version 8
+* `Piranha` version 11
+* `Piranha.Manager` version 11
 * Also: An Akismet API key
 
 # Demo

@@ -18,6 +18,14 @@ namespace Zon3.SpamDetector
         public static readonly string KeySiteEncoding = $"{KeyPrefix}SiteEncoding";
         public static readonly string KeyUserRole = $"{KeyPrefix}UserRole";
 
+        private static readonly bool DefaultValueEnabled = false;
+        private static readonly bool DefaultValueIsTest = true;
+        private static readonly string DefaultValueSpamApiUrl = "";
+        private static readonly string DefaultValueSiteUrl = "";
+        private static readonly string DefaultValueSiteLanguage = "en-US";
+        private static readonly string DefaultValueSiteEncoding = "UTF8";
+        private static readonly string DefaultValueUserRole = "guest";
+
         public SpamDetectorConfig(IParamService paramService)
         {
             _service = paramService;
@@ -33,7 +41,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(KeyEnabled).GetAwaiter().GetResult();
-                return param == null || Convert.ToBoolean(param.Value);
+                return param == null ? DefaultValueEnabled : Convert.ToBoolean(param.Value);
             }
             set
             {
@@ -52,7 +60,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(KeyIsTest).GetAwaiter().GetResult();
-                return param == null || Convert.ToBoolean(param.Value);
+                return param == null ? DefaultValueIsTest : Convert.ToBoolean(param.Value);
             }
             set
             {
@@ -71,7 +79,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(KeySpamApiUrl).GetAwaiter().GetResult();
-                return param?.Value;
+                return param == null ? DefaultValueSpamApiUrl : param.Value;
             }
             set
             {
@@ -90,7 +98,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(KeySiteUrl).GetAwaiter().GetResult();
-                return param?.Value;
+                return param == null ? DefaultValueSiteUrl : param.Value;
             }
             set
             {
@@ -109,7 +117,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(KeySiteLanguage).GetAwaiter().GetResult();
-                return param == null ? "en-US" : param.Value;
+                return param == null ? DefaultValueSiteLanguage : param.Value;
             }
             set
             {
@@ -128,7 +136,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(KeySiteEncoding).GetAwaiter().GetResult();
-                return param == null ? "UTF8" : param.Value;
+                return param == null ? DefaultValueSiteEncoding : param.Value;
             }
             set
             {
@@ -147,7 +155,7 @@ namespace Zon3.SpamDetector
             get
             {
                 var param = _service.GetByKeyAsync(KeyUserRole).GetAwaiter().GetResult();
-                return param == null ? "guest" : param.Value;
+                return param == null ? DefaultValueUserRole: param.Value;
             }
             set
             {

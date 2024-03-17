@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	
 	<AssemblyName>Zon3.SpamDetector</AssemblyName>
     <RootNamespace>Zon3.SpamDetector</RootNamespace>
-    <VersionPrefix>1.4.0</VersionPrefix>
+    <VersionPrefix>1.5.0</VersionPrefix>
 	
 	<Authors>Jens Bråkenhielm</Authors>
-    <Copyright>Copyright 2020-2022 (c) Jens Bråkenhielm</Copyright>
+    <Copyright>Copyright 2020-2024 (c) Jens Bråkenhielm</Copyright>
     <Description>Piranha Module detecting comment spam using Akismet</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -28,10 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.4" />
-    <PackageReference Include="Piranha" Version="10.1.0" />
-    <PackageReference Include="Piranha.Manager" Version="10.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.3" />
+    <PackageReference Include="Piranha" Version="11.0.0" />
+    <PackageReference Include="Piranha.Manager" Version="11.0.0" />
 
   </ItemGroup>
   

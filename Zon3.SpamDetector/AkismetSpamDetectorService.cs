@@ -13,34 +13,45 @@ namespace Zon3.SpamDetector
 {
     public class AkismetSpamDetectorService : SpamDetectorService
     {
+        private readonly string _piranhaVersion;
+        private readonly string _pluginVersion;
+
         /// <inheritdoc cref="SpamDetectorService" select="param"/>
         /// <summary>
         /// The Akismet anti-spam service implementation of the <see cref="SpamDetectorService"/> core functionality.
         /// Composes a request to Akismet with as much relevant information as possible provided and
         /// translates a response from Akismet to a review result in form of a <see cref="CommentReview"/>.
         /// </summary>
-        public AkismetSpamDetectorService(IApi piranha, SpamDetectorConfigService config, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(piranha, config, httpClientFactory, loggerFactory)
+        public AkismetSpamDetectorService(IApi api, SpamDetectorConfigService config, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory) : base(api, config, httpClientFactory, loggerFactory)
         {
-            // Intentionally left empty
+            _piranhaVersion = Utils.GetAssemblyVersion(typeof(App).Assembly);
+            _pluginVersion = Utils.GetAssemblyVersion(typeof(SpamDetectorModule).Assembly);
         }
         
         /// <inheritdoc cref="SpamDetectorService"/>
         protected override async Task<HttpRequestMessage> GetSpamRequestMessageAsync(Comment comment)
         {
-            CommentId = comment.Id;
+            var userAgent = $"Piranha CMS/{_piranhaVersion} | SpamDetector/{_pluginVersion}";
 
-            var post = await Piranha.Posts.GetByIdAsync(comment.ContentId);
-            var page = await Piranha.Pages.GetByIdAsync(post?.BlogId ?? comment.ContentId);
-            var permalink = post != null ? post.Permalink : page.Permalink;
-            var permalinkFull = $"{ConfigModel.SiteUrl}{permalink}";
+            string permalink;
+            var post = await Api.Posts.GetByIdAsync(comment.ContentId);
+            if (post != null)
+            {
+                permalink = $"{ConfigModel.SiteUrl}{post.Permalink}";
+            }
+            else
+            {
+                var page = await Api.Pages.GetByIdAsync(post?.BlogId ?? comment.ContentId);
+                permalink = $"{ConfigModel.SiteUrl}{page.Permalink}";
+            }
 
             var parameters = new Dictionary<string, string>
                 {
                     {"blog", HttpUtility.UrlEncode(ConfigModel.SiteUrl)},
                     {"user_ip", HttpUtility.UrlEncode(comment.IpAddress)},
-                    {"user_agent", HttpUtility.UrlEncode(comment.UserAgent)},
+                    {"user_agent", HttpUtility.UrlEncode(userAgent)}, // Ignore comment.UserAgent and use Akismet preferred format
                     {"referrer", HttpUtility.UrlEncode(string.Empty)}, // ???
-                    {"permalink", HttpUtility.UrlEncode(permalinkFull)},
+                    {"permalink", HttpUtility.UrlEncode(permalink)},
                     {"comment_type", HttpUtility.UrlEncode("comment")},
                     {"comment_author", HttpUtility.UrlEncode(comment.Author ?? string.Empty)},
                     {"comment_author_email", HttpUtility.UrlEncode(comment.Email ?? string.Empty)},

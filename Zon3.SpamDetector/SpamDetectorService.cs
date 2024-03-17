@@ -20,24 +20,23 @@ namespace Zon3.SpamDetector
     /// </summary>
     public abstract class SpamDetectorService : ISpamDetectorService
     {
-        protected IApi Piranha;
+        protected IApi Api;
         protected ILogger Logger;
         protected IHttpClientFactory HttpClientFactory;
         protected SpamDetectorConfigModel ConfigModel;
-        protected Guid CommentId;
 
         public bool Enabled => ConfigModel.Enabled;
 
         /// <summary>
         /// The default constructor.
         /// </summary>
-        /// <param name="piranha">The Piranha API</param>
+        /// <param name="api">The Piranha API</param>
         /// <param name="config">The configuration to use</param>
         /// <param name="httpClientFactory">The factory to use to get http client for requests</param>
         /// <param name="loggerFactory">The factory to use to get a logger</param>
-        protected SpamDetectorService(IApi piranha, SpamDetectorConfigService config, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory)
+        protected SpamDetectorService(IApi api, SpamDetectorConfigService config, IHttpClientFactory httpClientFactory, ILoggerFactory loggerFactory)
         {
-            Piranha = piranha;
+            Api = api;
             HttpClientFactory = httpClientFactory;
             ConfigModel = config.Get();
 
@@ -48,24 +47,34 @@ namespace Zon3.SpamDetector
 
             if (!ConfigModel.Enabled)
             {
-                Logger.LogWarning("Module disabled by configuration: comments will not be reviewed/changed");
+                Logger.LogWarning("Module disabled: spam detection will not be performed");
+            }
+
+            if (ConfigModel.IsTest)
+            {
+                Logger.LogWarning("Module in test mode: spam detection results may be affected");
             }
 
             if (string.IsNullOrEmpty(ConfigModel.SpamApiUrl))
             {
-                const string msg = "Module not configured properly, mandatory value missing: SpamApiUrl";
+                const string msg = "Module configuration error, mandatory value not set: SpamApiUrl";
                 Logger.LogError(msg);
                 throw new InvalidOperationException(msg);
             }
 
             if (string.IsNullOrEmpty(ConfigModel.SiteUrl))
             {
-                Logger.LogWarning("Option SiteUrl is missing: results may be wrong");
-            }
-
-            if (ConfigModel.IsTest)
-            {
-                Logger.LogWarning("Option IsTest is true: no live requests will be made");
+                const string msg = "Module configuration error, mandatory value not set: SiteUrl";
+                if (ConfigModel.IsTest)
+                {
+                    // Mandatory but in test mode so just warn
+                    Logger.LogWarning(msg);
+                }
+                else
+                {                    
+                    Logger.LogError(msg);
+                    throw new InvalidOperationException(msg);
+                }
             }
         }
 
@@ -76,20 +85,18 @@ namespace Zon3.SpamDetector
         /// <returns>Interpreted and selected information about the result of the review</returns>
         public async Task<CommentReview> ReviewAsync(Comment comment)
         {
-            CommentId = comment.Id;
-
             if (!Enabled)
             {
                 return new CommentReview() { Approved = comment.IsApproved };
             }
 
-            Logger.LogDebug($"Composing API request for comment '{CommentId}' by '{comment.Email}'");
+            Logger.LogDebug($"Composing API request for comment '{comment.Id}' by '{comment.Email}'");
             var requestMessage = await GetSpamRequestMessageAsync(comment);
-            Logger.LogDebug("Sending API request for comment '{1}' from IP '{2}'...", CommentId, comment.IpAddress);
+            Logger.LogDebug("Sending API request for comment '{1}' from IP '{2}'...", comment.Id, comment.IpAddress);
             var response = await HttpClientFactory.CreateClient().SendAsync(requestMessage);
-            Logger.LogDebug("Received API response for comment '{1}' = '{2}'", CommentId, response.Content);
+            Logger.LogDebug("Received API response for comment '{1}' = '{2}'", comment.Id, response.Content);
             response.EnsureSuccessStatusCode();
-            Logger.LogDebug("Interpreting API response for comment '{1}' = '{2}'", CommentId, requestMessage);
+            Logger.LogDebug("Interpreting API response for comment '{1}' = '{2}'", comment.Id, requestMessage);
             var review = await GetCommentReviewFromResponse(response);
 
             return review;
