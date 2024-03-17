@@ -1,3 +1,4 @@
+# SpamDetecter NuGet
 on:
   release:
     types: [published]
