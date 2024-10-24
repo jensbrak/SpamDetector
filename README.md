@@ -76,13 +76,25 @@ These settings are sent to Akismet along with the comments to help review the co
 
 # Localization
 The module itself supports localization, it works similar to how Piranha is localized. 
-Note: the support is not complete: the texts with module info does not yet support localization.
+Note: support for localization is not 100%, see source for more info.
 
 # Issues and feedback
 Found an issue with the module? Feedback or ideas about it?<br> 
 Visit the GitHub page of the module and submit an issue.<br>
 <br>
 Issues: [github.com/jensbrak/SpamDetector/issues](https://github.com/jensbrak/SpamDetector/issues)
+
+# Roadmap / Shortcomings
+Things I'd like to do with the module to make it more complete/useful/interesting:
+
+1. Support reporting spam/spam in Akismet. I have ideas but there are some challenges to do it tidy yet useful (see note below).
+2. Make localization supported 100%. I over complicated some aspects of it and did not take it all the way.
+3. Add support for a second anti spam service. Would be interesting and also force me improve existing code.
+
+Note: the comment feature Piranha provides is rather crude, by design. Managing comments, for instance, is limited to approving or deleting them. 
+Adopting SpamDetector module to support spam/ham reporting should be possible using existing comment functionality and quite limited code changes.
+While at it, it's very tempting to extend the manager interface to be more useful when managing comments. That is beyond the scope and ambitions of the SpamDetector module. 
+It would be interesting to do, but I feel it should be a separate project.
 
 # Further reading
 Selected links relevant to this module:
