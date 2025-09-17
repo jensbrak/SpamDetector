@@ -87,14 +87,14 @@ Issues: [github.com/jensbrak/SpamDetector/issues](https://github.com/jensbrak/Sp
 # Roadmap / Shortcomings
 Things I'd like to do with the module to make it more complete/useful/interesting:
 
-1. Support reporting spam/spam in Akismet. I have ideas but there are some challenges to do it tidy yet useful (see note below).
+1. Support reporting spam/ham in Akismet. I have ideas but there are some challenges to do it tidy yet useful (see note below).
 2. Make localization supported 100%. I over complicated some aspects of it and did not take it all the way.
 3. Add support for a second anti spam service. Would be interesting and also force me improve existing code.
+4. Known issue: my demo site shows quite a number of comments approved that shouldn't be approved. Not sure if it's my use of Akismet that is lacking or if it's the ever evolving spam landscape that causes it. So yes, I am aware but have not looked into it. Suggestions are welcome!
 
-Note: the comment feature Piranha provides is rather crude, by design. Managing comments, for instance, is limited to approving or deleting them. 
-Adopting SpamDetector module to support spam/ham reporting should be possible using existing comment functionality and quite limited code changes.
-While at it, it's very tempting to extend the manager interface to be more useful when managing comments. That is beyond the scope and ambitions of the SpamDetector module. 
-It would be interesting to do, but I feel it should be a separate project.
+Note: the comment feature that Piranha provides is rather crude, by design. Managing comments, for instance, is limited to approving or deleting them (one by one!). 
+Adopting SpamDetector module to support spam/ham reporting should be possible using existing comment functionality and quite limited code changes (something like: report ham if this module has set a comment to not approved if the user then explicitly approves it. Similarly for comments that has been been approved incorrectly - report it as missed spam if user explicitly disapproves it. Neat to use existing interface, but I am also a bit hesitant to include this "implicit behaviour" in the existing approve/disapprove functionality)
+On the other hand, it's very tempting to extend the manager interface to be more useful when managing comments while at it. Separate buttons to do the spam/ham reporting, bulk edits etc etc. That would quickly go beyond the scope and ambitions of the SpamDetector module. It would be interesting to do, but I feel it should be a separate project. Ideas?
 
 # Further reading
 Selected links relevant to this module:
