@@ -23,7 +23,7 @@ If not considered spam, the comment is marked as approved and is published.
 
 # Note
 While providing working antispam functionality, the purpose of this module was primarly to explore and learn about Piranha.
-The documentation and samples are helpful when writing a module with one exception: Manager support.
+The official documentation and samples are very helpful when writing a module but with one exception: Manager support.
 I wanted to see what it took to make a module with full Manager support, including persistance, localization (while keeping the look and feel of the internal Piranha modules). 
 In other words: You might have use for this module even if antispam/comments are not of interest - if you just want to understand how Manager support can be added to a custom Piranha module. There's no claim that this is the right way to do it, however.
 
@@ -44,8 +44,8 @@ It's also possible to simulate spam messages, check Akismet documentation (link 
 My PiranhaCMS demo site: [zon3.se](https://zon3.se)
 
 _Note: you might notice approved comments that clearly should have been identified as spam. I haven't investigated why some spam gets incorrectly approved, suggestions are welcome!
-See issue https://github.com/jensbrak/SpamDetector/issues/1 for details.
-_
+See [this issue](https://github.com/jensbrak/SpamDetector/issues/1) for details._
+
 # Installation
 See Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) (for Piranha prior version 10.0.3) or [`Program.cs`](Examples/Program.cs) (for Piranha version 10.0.3 and up). The files are from the [piranha.razor](https://piranhacms.org/docs/master/basics/project-templates) template with relevant code added.
 
@@ -97,7 +97,7 @@ Things I'd like to do with the module to make it more complete/useful/interestin
 3. Add support for a second anti spam service. Would be interesting and also force me improve existing code.
 4. Known issue: demo site shows quite a number of comments approved that shouldn't be approved. See https://github.com/jensbrak/SpamDetector/issues/1
 
-Note: Adding support for spam/ham reporting would require either an update to Piranha comment functionality (mainly the admin interface for comments) _or_ by using the existing functionality in some way. See separate issue for this: https://github.com/jensbrak/SpamDetector/issues/2
+Note: Adding support for spam/ham reporting would require either an update to Piranha comment functionality (mainly the admin interface for comments) _or_ by using the existing functionality in some way. See [separate issue for this](https://github.com/jensbrak/SpamDetector/issues/2). 
 
 # Further reading
 Selected links relevant to this module:
