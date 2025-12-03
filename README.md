@@ -37,10 +37,15 @@ In other words: You might have use for this module even if antispam/comments are
 * Also: An Akismet API key
 
 # Demo
-Please go ahead and try it out by posting a comment with a greeting on my blog. It runs PiranhaCMS with this module active. If your comment is directly visible it's been classified by akismet as non-spam and approved by the SpamDetector module as a valid comment. If not, stop spamming! (Or report a bug to me ;) )
+Please go ahead and try it out by posting a comment with a greeting on my blog. It runs PiranhaCMS with this module active and comments enabled for selected posts (not all). 
+If your comment is directly visible it's been classified by akismet as non-spam and approved by the SpamDetector module as a valid comment. 
+It's also possible to simulate spam messages, check Akismet documentation (link down below under Further reading).
 
 My PiranhaCMS demo site: [zon3.se](https://zon3.se)
 
+_Note: you might notice approved comments that clearly should have been identified as spam. I haven't investigated why some spam gets incorrectly approved, suggestions are welcome!
+See issue https://github.com/jensbrak/SpamDetector/issues/1 for details.
+_
 # Installation
 See Instructions below and/or the example [`Startup.cs`](Examples/Startup.cs) (for Piranha prior version 10.0.3) or [`Program.cs`](Examples/Program.cs) (for Piranha version 10.0.3 and up). The files are from the [piranha.razor](https://piranhacms.org/docs/master/basics/project-templates) template with relevant code added.
 
@@ -87,14 +92,12 @@ Issues: [github.com/jensbrak/SpamDetector/issues](https://github.com/jensbrak/Sp
 # Roadmap / Shortcomings
 Things I'd like to do with the module to make it more complete/useful/interesting:
 
-1. Support reporting spam/ham in Akismet. I have ideas but there are some challenges to do it tidy yet useful (see note below).
+1. Support reporting spam/ham to Akismet. I have ideas but there are some challenges to do it tidy yet useful (see note below).
 2. Make localization supported 100%. I over complicated some aspects of it and did not take it all the way.
 3. Add support for a second anti spam service. Would be interesting and also force me improve existing code.
-4. Known issue: my demo site shows quite a number of comments approved that shouldn't be approved. Not sure if it's my use of Akismet that is lacking or if it's the ever evolving spam landscape that causes it. So yes, I am aware but have not looked into it. Suggestions are welcome!
+4. Known issue: demo site shows quite a number of comments approved that shouldn't be approved. See https://github.com/jensbrak/SpamDetector/issues/1
 
-Note: the comment feature that Piranha provides is rather crude, by design. Managing comments, for instance, is limited to approving or deleting them (one by one!). 
-Adopting SpamDetector module to support spam/ham reporting should be possible using existing comment functionality and quite limited code changes (something like: report ham if this module has set a comment to not approved if the user then explicitly approves it. Similarly for comments that has been been approved incorrectly - report it as missed spam if user explicitly disapproves it. Neat to use existing interface, but I am also a bit hesitant to include this "implicit behaviour" in the existing approve/disapprove functionality)
-On the other hand, it's very tempting to extend the manager interface to be more useful when managing comments while at it. Separate buttons to do the spam/ham reporting, bulk edits etc etc. That would quickly go beyond the scope and ambitions of the SpamDetector module. It would be interesting to do, but I feel it should be a separate project. Ideas?
+Note: Adding support for spam/ham reporting would require either an update to Piranha comment functionality (mainly the admin interface for comments) _or_ by using the existing functionality in some way. See separate issue for this: https://github.com/jensbrak/SpamDetector/issues/2
 
 # Further reading
 Selected links relevant to this module:
